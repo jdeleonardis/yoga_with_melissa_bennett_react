@@ -1,0 +1,24 @@
+.navbar-image {
+    height: 100px;
+    width: 365px;
+}
+  
+.navbar {
+    background-color: #2e3d30;
+}
+  
+  /* button.navbar-toggler:focus { outline: 1px none; } */
+  
+  h1 {
+    font-weight: bold;
+  }
+  
+  h4 {
+    font-weight: bold;
+  }
+
+  .container {
+    margin-top: 125px;
+    margin-bottom: 25px;
+    background-color: whitesmoke
+  }

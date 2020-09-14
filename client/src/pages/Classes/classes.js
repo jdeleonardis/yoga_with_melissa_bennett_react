@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-function home() {
+function classes() {
  
     return (    
         <main class="container">
             <div class="row py-3">
             <section class="col-lg-12">
                 <header>
-                <h1>Yoga With Melissa Bennett</h1>
+                <h1>Classes</h1>
                 </header>        
             </section>
             </div> 
@@ -15,4 +15,4 @@ function home() {
     );
 }
 
-export default home;
+export default classes;
