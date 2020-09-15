@@ -14,14 +14,9 @@ body {
   }
 
 .container {
-  margin-top: 125px;
+  margin-top: 80px;
   margin-bottom: 25px;
   background-color: whitesmoke
-}
-
-#address {
-  text-align: center;
-
 }
 
 .bold_text {
@@ -30,10 +25,6 @@ body {
 
 .centered_text{
   text-align: center;
-}
-
-#first-section {
-  margin-bottom: 25px;
 }
 
 #btnwrapper {
@@ -46,14 +37,4 @@ body {
 .greenbtn {
   background-color: #647474;
   color: #d8d8c8;
-}
-
-.greenbackground {
-  background-color: #647474;
-  color: #d8d8c8;
-}
-
-.beigebtn {
-  background-color: #d8d8c8;
-  color: #647474;
 }
