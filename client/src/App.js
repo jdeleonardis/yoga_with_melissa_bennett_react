@@ -4,23 +4,21 @@ import Classes from "./pages/Classes/classes.js";
 // import Detail from "./pages/Detail";
 // import NoMatch from "./pages/NoMatch";
 import "./App.css"
-import Nav from "./components/Nav/nav.js";
+import NavComponent from "./components/NavComponent/navcomponent.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-// The app will not render correctly until you setup a Route component.
-// Refer to the Basic Example documentation if you need to.
-// (https://reacttraining.com/react-router/web/example/basic)
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <Nav />
+        <NavComponent/>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/classes" component={Classes} />
-{/*           <Route exact path="/home" component={Books} />
-          <Route exact path="/books/:id" children={<Detail />} />
-          <Route path="*" component={NoMatch} /> */}
+          <Route exact path="/" component={Home} />
+          <Route exact path="/classes" component={Classes} />
+          <Route exact path="/resources" component={Home} />
+          <Route exact path="/aboutmelissa" component={Classes} />          
+          <Route exact path="/contact" component={Classes} />                    
+          <Route exact path="/admin" component={Classes} />                              
         </Switch>
       </div>
     </BrowserRouter>
