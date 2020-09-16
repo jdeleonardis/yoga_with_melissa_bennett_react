@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "./home.css"
+import React from "react";
+import "./Home.css"
 
-function home() {
+function Home() {
  
     return (    
         <main className="container">
@@ -90,4 +90,4 @@ function home() {
     );
 }
 
-export default home;
+export default Home;

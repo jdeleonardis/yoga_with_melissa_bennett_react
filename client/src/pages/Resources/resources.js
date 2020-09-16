@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-function resources() {
+function Resources() {
  
     return (    
         <main class="container">
@@ -22,12 +22,12 @@ function resources() {
                         </tr>
                         <tr>
                             <td>Warriors At Ease</td>
-                            <td><a href="http://warriorsatease.org/" target="_blank">Warriors At Ease</a></td>
+                            <td><a href="http://warriorsatease.org/" target="_blank" rel="noopener noreferrer">Warriors At Ease</a></td>
                             <td>555-121-1212</td>
                         </tr>
                         <tr>
                             <td>Suicide Prevention Lifeline</td>
-                            <td><a href="https://suicidepreventionlifeline.org/" target="_blank">Suicide Prevention Lifeline</a></td>              
+                            <td><a href="https://suicidepreventionlifeline.org/" target="_blank" rel="noopener noreferrer">Suicide Prevention Lifeline</a></td>              
                             <td>555-121-1212</td>
                         </tr>
                     </table>
@@ -38,4 +38,4 @@ function resources() {
     );
 }
 
-export default resources;
+export default Resources;

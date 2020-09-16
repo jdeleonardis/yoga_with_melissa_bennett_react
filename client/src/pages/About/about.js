@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-function about() {
+function About() {
  
     return (    
         <main class="container">
@@ -35,4 +35,4 @@ function about() {
     );
 }
 
-export default about;
+export default About;

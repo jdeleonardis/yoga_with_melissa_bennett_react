@@ -2,7 +2,7 @@ import React from "react";
 import {useLocation} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import "./navcomponent.css"
+import "./NavComponent.css"
  
 function NavComponent() {
 const location = useLocation();

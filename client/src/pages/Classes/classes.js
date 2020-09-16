@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-function classes() {
+function Classes() {
  
     return (    
         <main class="container">
@@ -38,4 +38,4 @@ function classes() {
     );
 }
 
-export default classes;
+export default Classes;
