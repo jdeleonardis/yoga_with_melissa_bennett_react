@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
+import ClassesComponent from "../../components/ClassesComponent/ClassesComponent.js";
 
 function Classes() {
+    const [classData, setClassData] = useState([]);
+    const [checkedItems, setCheckedItems] = useState({});
+    const [contactInfo, setContactInfo] = useState({
+        name: "",
+        email: ""
+    })
+    
+    // const [partsOfSpeech, setPartsOfSpeech] = useState({
+    //   partOfSpeech: []
+    // });
 
     useEffect(() => {
         APIGetNextClasses();
@@ -16,11 +27,36 @@ function Classes() {
             if (res.data.status === "error") {
               throw new Error(res.data.message);
             }
-            //setPartsOfSpeech({ partOfSpeech: res.data });
-            console.log(res.data)
+            setClassData(res.data) 
+            //setClassData(res.data.map(obj=> ({ ...obj, selected: 'false' })))    
           })
           .catch(err => console.log(err));
       }    
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();   
+        
+        //console.log(checkedItems)
+        Object.keys(checkedItems).forEach(e => 
+            console.log(`key=${e}  value=${checkedItems[e]}`)
+        );
+
+    }
+
+    const handleCheckboxChange = (e) => {
+        setCheckedItems({
+            ...checkedItems,
+            [e.target.name]: e.target.checked
+          });
+    }
+
+    const handleNameChange = (e) => {
+        console.log(e.target.value)
+    }    
+
+    const handleEmailChange = (e) => {
+        console.log(e.target.value)
+    }        
  
     return (    
         <main className="container">
@@ -53,6 +89,14 @@ function Classes() {
                         <p>Still more</p>
                     </div>                    
                 </section>
+                <ClassesComponent 
+                    classData={classData}
+                    formSubmit={handleFormSubmit}
+                    onCheckboxChange={handleCheckboxChange}
+                    contactInfo={contactInfo}
+                    onNameChange={handleNameChange}
+                    onEmailChange={handleEmailChange}
+                />
             </div>            
         </main>
     );
