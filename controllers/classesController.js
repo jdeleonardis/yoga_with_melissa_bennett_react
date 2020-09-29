@@ -7,10 +7,18 @@ module.exports = {
     db.Classes.find({
          dateStart: { $gte: nowDate },
          cancelled: false
-      }).limit(3).sort({dateStart:1})
-      .then(dbModel => res.json(dbModel))
+      })      
+      .populate("location")
+      .limit(3).
+      sort({dateStart:1})
+      // .populate({path: 'locations', options: { sort: { 'title': 1 } } })
+
+      .then(dbModel => {
+        //console.log(dbModel)
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
-    }  
+  }  
 
 
 //   createUser: function(req, res) {

@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 const classesSchema = new Schema({
   dateStart: { type: Date, required: true },
   dateEnd: { type: Date },
-  location: { type: String },
+  location:  [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Locations"
+        }
+  ],
   maxParticipants: { type: Number},
   names: { type: Array },
   emailAddresses: { type: Array},

@@ -18,7 +18,7 @@ function Classes() {
         APIGetNextClasses();
     }, []);
 
-    const APIGetNextClasses = () => {
+    const APIGetNextClasses = () => {        
         API.getClasses()
           .then(res => {
             if (res.data.length === 0) {
@@ -27,6 +27,7 @@ function Classes() {
             if (res.data.status === "error") {
               throw new Error(res.data.message);
             }
+            //console.log(res.data)
             setClassData(res.data) 
             //setClassData(res.data.map(obj=> ({ ...obj, selected: 'false' })))    
           })
