@@ -9,17 +9,19 @@ module.exports = {
          cancelled: false
       })      
       .populate("location")
-      .limit(3).
-      sort({dateStart:1})
-      // .populate({path: 'locations', options: { sort: { 'title': 1 } } })
-
+      .limit(3)
+      .sort({dateStart:1})
       .then(dbModel => {
-        //console.log(dbModel)
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err));
-  }  
+  },
 
+  updateClassAttendanceByID: function(req,res) {
+    db.Classes.findOneAndUpdate({ _id: req.params.id }, { $push: {names: req.body.name, emailAddresses: req.body.email } }, { new: true }) //need to be destructured?
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  }  
 
 //   createUser: function(req, res) {
 //     db.Users.create(req.body)  //need to be destructured?  ({ userid: req.body.userid, password: req.body.password })

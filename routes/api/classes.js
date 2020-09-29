@@ -12,12 +12,11 @@ router
 //     //.route("/users")  //I *think* the users part gets tacked in in index.js in the same dir
 //     .post(usersController.createUser);
 
-// // Matches with "/api/users/:id"
-// router
-//     .route("/:id")
-//     //.route("/users/:id")
+// Matches with "/api/classes/:id"
+ router
+    .route("/:id")
 //     .get(usersController.findUserById)  
-//     .put(usersController.updateUser)
+    .put(classesController.updateClassAttendanceByID);
 //     .delete(usersController.removeUser);
 
 // // Matches with "/api/users/templates/:id"

@@ -4,7 +4,7 @@ import Checkbox from "../Checkbox/Checkbox"
 
 function ClassesComponent(props) {  
 
-  console.log(props)
+  //console.log(props)
   return (
     <section className="content">
       <h5>Step 1 - Select any of the upcoming classes you would like to attend:</h5>
@@ -27,16 +27,16 @@ function ClassesComponent(props) {
               className="form-control" 
               id="inputName" 
               placeholder="John Smith"
-              onChange={props.onNameChange}         
-              required>                                
+              onChange={props.onNameChange}>      
+              {/* required>                                 */}
         </input>
         <input 
               type="text" 
               className="form-control" 
               id="inputEmail" 
               placeholder="YourName@email.com"      
-              onChange={props.onEmailChange}                          
-              required>                                
+              onChange={props.onEmailChange}>                          
+              {/* required>                                 */}
         </input>        
         <button type="submit" className="btn btn-primary">
           Save

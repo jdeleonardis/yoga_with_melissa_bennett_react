@@ -3,16 +3,11 @@ import API from "../../utils/API";
 import ClassesComponent from "../../components/ClassesComponent/ClassesComponent.js";
 
 function Classes() {
-    const [classData, setClassData] = useState([]);
-    const [checkedItems, setCheckedItems] = useState({});
+    const [classData, setClassData] = useState([]);    
     const [contactInfo, setContactInfo] = useState({
         name: "",
         email: ""
     })
-    
-    // const [partsOfSpeech, setPartsOfSpeech] = useState({
-    //   partOfSpeech: []
-    // });
 
     useEffect(() => {
         APIGetNextClasses();
@@ -28,36 +23,66 @@ function Classes() {
               throw new Error(res.data.message);
             }
             //console.log(res.data)
-            setClassData(res.data) 
-            //setClassData(res.data.map(obj=> ({ ...obj, selected: 'false' })))    
+            //setClassData(res.data) 
+            setClassData(res.data.map(obj=> ({ ...obj, selected: 'false' })))    
           })
           .catch(err => console.log(err));
       }    
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();   
-        
-        //console.log(checkedItems)
-        Object.keys(checkedItems).forEach(e => 
-            console.log(`key=${e}  value=${checkedItems[e]}`)
-        );
+        e.preventDefault();  
 
+        classData.forEach(classData => {
+            //console.log(classData)
+            if (classData.selected === true) {                
+                API.updateClassAttendance(classData._id, contactInfo)
+                .then(res => {
+                    if (res.data.status === "error") {
+                        throw new Error(res.data.message);
+                    }                    
+                })
+                .catch(err => console.log(err));                
+            }
+        })
     }
 
     const handleCheckboxChange = (e) => {
-        setCheckedItems({
-            ...checkedItems,
-            [e.target.name]: e.target.checked
-          });
+        let newArray = classData;
+        for (let i=0; i < newArray.length; i++) {
+            if (newArray[i].dateStart === e.target.name) { 
+                newArray[i].selected = e.target.checked
+                break;
+            }
+        }
+        setClassData(newArray);
     }
 
     const handleNameChange = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
+        setContactInfo({...contactInfo, name: e.target.value})
     }    
 
     const handleEmailChange = (e) => {
-        console.log(e.target.value)
-    }        
+        //console.log(e.target.value)
+        setContactInfo({...contactInfo, email: e.target.value})
+    }     
+    
+    const resetPage = () => {
+        alert("test")
+        setContactInfo({
+            name: "",
+            email: ""
+        });
+
+        let newArray = classData;
+        for (let i=0; i < newArray.length; i++) {
+            newArray[i].selected = "false"
+        }
+        setClassData(newArray);
+
+        //setTimeout(function(){ console.log(contactInfo); }, 5000);
+        console.log(contactInfo)
+    }
  
     return (    
         <main className="container">
