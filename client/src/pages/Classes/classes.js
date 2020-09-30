@@ -1,17 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import API from "../../utils/API";
 import ClassesComponent from "../../components/ClassesComponent/ClassesComponent.js";
+import SimpleModal from "../../components/SimpleModal/index.js";
 
 function Classes() {
+    const inputNameRef = useRef();
+    const inputEmailRef = useRef();
+
     const [classData, setClassData] = useState([]);    
     const [contactInfo, setContactInfo] = useState({
         name: "",
         email: ""
     })
 
+    const [isOpen, setIsOpen] = useState({
+        modalVisible: false,
+        modalText: ""
+      });  
+
     useEffect(() => {
         APIGetNextClasses();
-    }, []);
+    }, []);    
+
+    const showModal = (message) => {
+        setIsOpen({modalVisible: true, modalText: message});
+    };
+    
+    const hideModal = () => {
+        setIsOpen(false);
+        window.location.reload();
+    };       
 
     const APIGetNextClasses = () => {        
         API.getClasses()
@@ -21,29 +39,34 @@ function Classes() {
             }
             if (res.data.status === "error") {
               throw new Error(res.data.message);
-            }
-            //console.log(res.data)
-            //setClassData(res.data) 
+            } 
             setClassData(res.data.map(obj=> ({ ...obj, selected: 'false' })))    
           })
           .catch(err => console.log(err));
       }    
 
+
+    const processClassAttendancePromise = () => {
+        return new Promise(resolve => {
+            classData.forEach(classData => {
+                //console.log(classData)
+                if (classData.selected === true) {                
+                    API.updateClassAttendance(classData._id, contactInfo)
+                    .then(res => {
+                        if (res.data.status === "error") {
+                            throw new Error(res.data.message);
+                        }                    
+                    })
+                    .catch(err => console.log(err));                
+                }
+            })
+        })
+
+    }
+
     const handleFormSubmit = (e) => {
         e.preventDefault();  
-
-        classData.forEach(classData => {
-            //console.log(classData)
-            if (classData.selected === true) {                
-                API.updateClassAttendance(classData._id, contactInfo)
-                .then(res => {
-                    if (res.data.status === "error") {
-                        throw new Error(res.data.message);
-                    }                    
-                })
-                .catch(err => console.log(err));                
-            }
-        })
+        processClassAttendancePromise().then(showModal("Class registration saved."));        
     }
 
     const handleCheckboxChange = (e) => {
@@ -65,24 +88,8 @@ function Classes() {
     const handleEmailChange = (e) => {
         //console.log(e.target.value)
         setContactInfo({...contactInfo, email: e.target.value})
-    }     
-    
-    const resetPage = () => {
-        alert("test")
-        setContactInfo({
-            name: "",
-            email: ""
-        });
+    }        
 
-        let newArray = classData;
-        for (let i=0; i < newArray.length; i++) {
-            newArray[i].selected = "false"
-        }
-        setClassData(newArray);
-
-        //setTimeout(function(){ console.log(contactInfo); }, 5000);
-        console.log(contactInfo)
-    }
  
     return (    
         <main className="container">
@@ -122,8 +129,14 @@ function Classes() {
                     contactInfo={contactInfo}
                     onNameChange={handleNameChange}
                     onEmailChange={handleEmailChange}
+                    nameField={inputNameRef}
+                    emailField={inputEmailRef}
                 />
-            </div>            
+            </div> 
+            <SimpleModal 
+                show={isOpen.modalVisible}
+                onHide={hideModal}
+                body={isOpen.modalText}/>           
         </main>
     );
 }
