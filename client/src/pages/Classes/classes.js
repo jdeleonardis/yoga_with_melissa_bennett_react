@@ -106,20 +106,23 @@ function Classes() {
     const showInMapClicked = (address) => {        
         API.getGeoLocation(address)
         .then(res => {
-        if (res.data.length === 0) {
-            throw new Error("No results found.");
-        }
-        if (res.data.status === "error") {
-            throw new Error(res.data.message);
-        }
-        return res
+            if (res === undefined) {
+                throw new Error("There was an error retrieving the map.");
+            }        
+            if (res.data.length === 0) {
+                throw new Error("No results found.");
+            }
+            if (res.data.status === "error") {
+                throw new Error(res.data.message);
+            }
+            return res
         })
         .then(res => {
             const lat = res.data.data[0].latitude
             const long = res.data.data[0].longitude
             window.open("https://maps.google.com?q="+lat+","+long);
         })        
-        .catch(err => console.log(err));
+        .catch(err => console.log(err));        
     };
 
  
