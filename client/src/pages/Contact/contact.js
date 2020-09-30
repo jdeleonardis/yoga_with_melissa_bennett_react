@@ -12,14 +12,15 @@ function Contacts() {
 
       const [isOpen, setIsOpen] = useState({
         modalVisible: false,
-        modalText: ""
+        modalText: "",
+        reload: false
       });  
     
-      const showModal = (message) => {
-        setIsOpen({modalVisible: true, modalText: message});
+      const showModal = (message, reload) => {
+        setIsOpen({modalVisible: true, modalText: message, reload: reload});
       };
     
-      const hideModal = () => {
+      const hideModal = (reload) => {
         setIsOpen(false);
       };        
 
@@ -40,7 +41,7 @@ function Contacts() {
 
         emailjs.sendForm('gmail', 'template_jo8svjd', event.target, 'user_GT9KfgNxRsk5DWBzg400j')
         .then((result) => {
-            showModal("The contact form has been submitted.");
+            showModal("The contact form has been submitted.",false);
             setEmailInfo({emailInfo, name: "", email: "", message: ""});
         }, (error) => {
             console.log(error.text);
@@ -80,7 +81,8 @@ function Contacts() {
             <SimpleModal 
                 show={isOpen.modalVisible}
                 onHide={hideModal}
-                body={isOpen.modalText}/>
+                body={isOpen.modalText}
+                reload ={isOpen.reload}/>
          </main>
     );
 }

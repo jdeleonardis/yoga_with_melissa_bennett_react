@@ -22,9 +22,6 @@ function RegistrantContactInfo(props) {
             ref={props.emailRef}
             required>
         </input>        
-        <div id="btnwrapper" className="pb-3">
-            <button type="button" className="btn greenbtn">Save</button>            
-        </div> 
     </>
   );
 }

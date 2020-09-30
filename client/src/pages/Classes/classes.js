@@ -15,20 +15,23 @@ function Classes() {
 
     const [isOpen, setIsOpen] = useState({
         modalVisible: false,
-        modalText: ""
+        modalText: "",
+        reload: false
       });  
 
     useEffect(() => {
         APIGetNextClasses();
     }, []);    
 
-    const showModal = (message) => {
-        setIsOpen({modalVisible: true, modalText: message});
+    const showModal = (message,reload) => {
+        setIsOpen({modalVisible: true, modalText: message, reload: reload});
     };
     
-    const hideModal = () => {
+    const hideModal = (reload) => {
         setIsOpen(false);
-        window.location.reload();
+        if (reload) {
+            window.location.reload();
+        }        
     };       
 
     const APIGetNextClasses = () => {        
@@ -65,8 +68,20 @@ function Classes() {
     }
 
     const handleFormSubmit = (e) => {
-        e.preventDefault();  
-        processClassAttendancePromise().then(showModal("Class registration saved."));        
+        e.preventDefault();          
+        let somethingChecked = false
+        for (let i=0; i < classData.length; i++) {
+            if (classData[i].selected === true) {
+                somethingChecked = true
+                break;
+            }
+        }
+        if (!somethingChecked) {
+            showModal("Please select a class.",false)
+        }
+        else{
+            processClassAttendancePromise().then(showModal("Class registration saved.",true));        
+        }        
     }
 
     const handleCheckboxChange = (e) => {
@@ -154,7 +169,8 @@ function Classes() {
             <SimpleModal 
                 show={isOpen.modalVisible}
                 onHide={hideModal}
-                body={isOpen.modalText}/>           
+                body={isOpen.modalText}
+                reload ={isOpen.reload}/>           
         </main>
     );
 }
