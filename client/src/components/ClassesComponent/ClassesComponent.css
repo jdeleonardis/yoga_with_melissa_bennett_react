@@ -1,0 +1,19 @@
+.content-form {
+    margin: auto;
+    padding-top: 30px;
+    padding-left: 20px;    
+}
+
+.headers {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#inputName {
+    margin: 3px;
+}
+
+#inputEmail {
+    margin: 3px;
+    margin-bottom: 12px;
+}

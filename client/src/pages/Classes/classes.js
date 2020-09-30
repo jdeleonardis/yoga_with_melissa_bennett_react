@@ -81,14 +81,31 @@ function Classes() {
     }
 
     const handleNameChange = (e) => {
-        //console.log(e.target.value)
         setContactInfo({...contactInfo, name: e.target.value})
     }    
 
     const handleEmailChange = (e) => {
-        //console.log(e.target.value)
         setContactInfo({...contactInfo, email: e.target.value})
     }        
+
+    const showInMapClicked = (address) => {        
+        API.getGeoLocation(address)
+        .then(res => {
+        if (res.data.length === 0) {
+            throw new Error("No results found.");
+        }
+        if (res.data.status === "error") {
+            throw new Error(res.data.message);
+        }
+        return res
+        })
+        .then(res => {
+            const lat = res.data.data[0].latitude
+            const long = res.data.data[0].longitude
+            window.open("https://maps.google.com?q="+lat+","+long);
+        })        
+        .catch(err => console.log(err));
+    };
 
  
     return (    
@@ -131,6 +148,7 @@ function Classes() {
                     onEmailChange={handleEmailChange}
                     nameField={inputNameRef}
                     emailField={inputEmailRef}
+                    mapClicked={showInMapClicked}
                 />
             </div> 
             <SimpleModal 

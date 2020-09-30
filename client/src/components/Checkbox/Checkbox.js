@@ -1,19 +1,21 @@
 import React from "react";
-const moment = require ("moment");
+import Moment from "moment";
+import "./Checkbox.css"
 
-const Checkbox = ({ label, onCheckboxChange }) => (
-  <div className="form-check">
-    <label>
-      <input        
-        type="checkbox"
-        name={label}
-        onChange={onCheckboxChange}
-        className="form-check-input"
-        // key={keyValue}        
-      />
-      {/* {label} */}
-      {moment(label).format('MM/DD/YYYY h:mm A')}
-    </label>
+const Checkbox = ({ classInfo, onCheckboxChange }) => (
+  <div className="col-lg-5">
+    <div className="form-check">
+      <label className="checkboxDate">
+        <input        
+          type="checkbox"
+          name={classInfo.dateStart}
+          onChange={onCheckboxChange}
+          className="form-check-input"
+        />
+        {/* remove the .utc to show local... */}
+        {Moment.utc(classInfo.dateStart).format('MM/DD/YYYY') + "  " + Moment.utc(classInfo.dateStart).format('h:mm A') + "-" + Moment.utc(classInfo.dateEnd).format('h:mm A')} 
+      </label>
+    </div>
   </div>
 );
 
