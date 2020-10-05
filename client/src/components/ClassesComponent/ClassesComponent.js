@@ -31,12 +31,7 @@ function ClassesComponent(props) {
         ))}
 
         <h5 className="headers">Step 2: Enter your name and email address:</h5>
-        <RegistrantContactInfo
-          onNameChange={props.onNameChange}
-          onEmailChange={props.onEmailChange}
-          nameRef={props.nameField}
-          emailRef={props.emailField}          
-        />
+        <RegistrantContactInfo/>
         <div id="btnwrapper" className="pb-3">
             <button type="button" onClick={props.formSubmit} className="btn greenbtn">Save</button>            
         </div> 

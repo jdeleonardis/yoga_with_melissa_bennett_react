@@ -1,17 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
+import ContactNameContext from "../../utils/ContactNameContext";
+import ContactEmailContext from "../../utils/ContactEmailContext";
 import ClassesComponent from "../../components/ClassesComponent/ClassesComponent.js";
 import SimpleModal from "../../components/SimpleModal/index.js";
 
 function Classes() {
-    const inputNameRef = useRef();
-    const inputEmailRef = useRef();
-
     const [classData, setClassData] = useState([]);    
-    const [contactInfo, setContactInfo] = useState({
+
+    const [contactNameInfo, setContactNameInfo] = useState({
         name: "",
-        email: ""
-    })
+        handleNameChange: (e) => {   
+            setContactNameInfo({...contactNameInfo, name: e.target.value})
+        }
+    }) 
+    const [contactEmailInfo, setContactEmailInfo] = useState({
+        email: "",
+        handleEmailChange: (e) => {
+            setContactEmailInfo({...contactEmailInfo, email: e.target.value})
+        }
+    })        
 
     const [isOpen, setIsOpen] = useState({
         modalVisible: false,
@@ -51,9 +59,12 @@ function Classes() {
 
     const processClassAttendancePromise = () => {
         return new Promise(resolve => {
+            const contactInfo = {
+                name: contactNameInfo.name,
+                email: contactEmailInfo.email
+            }
             classData.forEach(classData => {
-                //console.log(classData)
-                if (classData.selected === true) {                
+                if (classData.selected === true) {    
                     API.updateClassAttendance(classData._id, contactInfo)
                     .then(res => {
                         if (res.data.status === "error") {
@@ -80,7 +91,7 @@ function Classes() {
             showModal("Please select a class.",false)
         }
         else{
-            processClassAttendancePromise().then(showModal("Class registration saved.",true));        
+            processClassAttendancePromise().then(showModal("Class registration saved.",true)); 
         }        
     }
 
@@ -94,14 +105,6 @@ function Classes() {
         }
         setClassData(newArray);
     }
-
-    const handleNameChange = (e) => {
-        setContactInfo({...contactInfo, name: e.target.value})
-    }    
-
-    const handleEmailChange = (e) => {
-        setContactInfo({...contactInfo, email: e.target.value})
-    }        
 
     const showInMapClicked = (address) => {        
         API.getGeoLocation(address)
@@ -157,17 +160,16 @@ function Classes() {
                         <p>Still more</p>
                     </div>                    
                 </section>
-                <ClassesComponent 
-                    classData={classData}
-                    formSubmit={handleFormSubmit}
-                    onCheckboxChange={handleCheckboxChange}
-                    contactInfo={contactInfo}
-                    onNameChange={handleNameChange}
-                    onEmailChange={handleEmailChange}
-                    nameField={inputNameRef}
-                    emailField={inputEmailRef}
-                    mapClicked={showInMapClicked}
-                />
+                <ContactNameContext.Provider value={contactNameInfo}>
+                    <ContactEmailContext.Provider value={contactEmailInfo}>
+                        <ClassesComponent 
+                            classData={classData}
+                            formSubmit={handleFormSubmit}
+                            onCheckboxChange={handleCheckboxChange}
+                            mapClicked={showInMapClicked}
+                        />
+                    </ContactEmailContext.Provider>
+                </ContactNameContext.Provider>
             </div> 
             <SimpleModal 
                 show={isOpen.modalVisible}

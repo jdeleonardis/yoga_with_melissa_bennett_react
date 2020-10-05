@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import ContactNameContext from "../../utils/ContactNameContext";
+import ContactEmailContext from "../../utils/ContactEmailContext";
 
-function RegistrantContactInfo(props) {
+function RegistrantContactInfo() {
+
+  const {handleNameChange} = useContext(ContactNameContext);
+  const {handleEmailChange} = useContext(ContactEmailContext);
 
   return (
     <>
@@ -9,8 +14,7 @@ function RegistrantContactInfo(props) {
             className="form-control" 
             id="inputName" 
             placeholder="John Smith"
-            onChange={props.onNameChange}
-            ref={props.nameRef}      
+            onChange={handleNameChange}
             required>
         </input>
         <input 
@@ -18,8 +22,7 @@ function RegistrantContactInfo(props) {
             className="form-control" 
             id="inputEmail" 
             placeholder="YourName@email.com"      
-            onChange={props.onEmailChange}
-            ref={props.emailRef}
+            onChange={handleEmailChange}
             required>
         </input>        
     </>
