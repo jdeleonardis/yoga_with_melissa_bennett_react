@@ -4,12 +4,16 @@ import Classes from "./pages/Classes/Classes.js";
 import Resources from "./pages/Resources/Resources.js";
 import About from "./pages/About/About.js";
 import Contact from "./pages/Contact/Contact.js";
+import TestPage from "./pages/TestPage/TestPage.js"
+import Login from "./pages/Login/Login.js"
+import AdminHome from "./pages/AdminHome/AdminHome.js"
 // import Detail from "./pages/Detail";
 // import NoMatch from "./pages/NoMatch";
 import "./App.css"
 import NavComponent from "./components/NavComponent/NavComponent.js";
 import Footer from "./components/Footer/Footer.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import withAuth from '../src/utils/withAuth.js'
 
 function App() {
   return (
@@ -22,7 +26,9 @@ function App() {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/aboutmelissa" component={About} />          
             <Route exact path="/contact" component={Contact} />                    
-            <Route exact path="/admin" component={Classes} />                              
+            <Route exact path="/test" component={TestPage} />  
+            <Route exact path="/login" component={Login} />                              
+            <Route exact path="/adminhome" component={withAuth(AdminHome)} />
         </Switch>
         <Footer/>
       </div>

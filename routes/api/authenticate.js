@@ -1,10 +1,20 @@
 const router = require("express").Router();
-const ownerController = require("../../controllers/ownerController");
+const authenticateController = require("../../controllers/authenticateController");
 
-// Matches with "/api/owner"
+// Matches with "/api/authenticate"
 router
     .route("/")
-    .post(ownerController.createOwner);
+    .post(authenticateController.authenticateUser)
+    // .get(authenticateController.verifyToken);
+
+router
+    .route("/token")
+    .get(authenticateController.verifyToken);
+
+//Matches with "/api/authenticate/checkToken"
+// router
+//     .route("/checkToken")
+//     .get(authenticateController.checkRoute);
 
 // // Matches with "/api/users"
 // router

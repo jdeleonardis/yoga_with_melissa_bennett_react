@@ -25,7 +25,9 @@ function NavComponent() {
           <Nav.Link id="link" href="/resources" className={location.pathname === "/resources" ? "active" : "inactive"}>Resources</Nav.Link>
           <Nav.Link id="link" href="/aboutmelissa" className={location.pathname === "/aboutmelissa" ? "active" : "inactive"}>About Melissa</Nav.Link>      
           <Nav.Link id="link" href="/contact" className={location.pathname === "/contact" ? "active" : "inactive"}>Contact</Nav.Link>            
-          <Nav.Link id="link" href="/admin" className={location.pathname === "/admin" ? "active" : "inactive"}>Admin</Nav.Link>                  
+          {/* <Nav.Link id="link" href="/test" className={location.pathname === "/test" ? "active" : "inactive"}>Test Link</Nav.Link>   */}
+          {/* <Nav.Link id="link" href="/login" className={location.pathname === "/login" ? "active" : "inactive"}>Admin</Nav.Link>                   */}
+          <Nav.Link id="link" href="/adminhome" className={location.pathname === "/adminhome" ? "active" : "inactive"}>Admin</Nav.Link>                  
         </Nav>
       </Navbar.Collapse>
     </Navbar>
