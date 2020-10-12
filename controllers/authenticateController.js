@@ -37,7 +37,7 @@ module.exports = {
                   expiresIn: '1d'
                 });
              
-                res.cookie('token', token, { httpOnly: true })
+                res.cookie('token', token, { httpOnly: false })
                   .sendStatus(200);
               }
             });

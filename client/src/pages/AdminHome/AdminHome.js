@@ -1,6 +1,13 @@
 import React from "react";
 
 function AdminHome() {
+
+    const logOut = () => {        
+        document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        window.location.reload();
+    }    
  
     return (    
         <main className="container">
@@ -18,6 +25,8 @@ function AdminHome() {
                         <p>test test test test</p>
                     </div>
 
+
+                    <button type="submit" onClick={logOut} className="btn greenbtn">Submit</button>
                     {/* <div id="btnwrapper" class="pb-3">
                         <a href="/classes">
                             <button type="button" class="btn greenbtn">Class Information</button>
