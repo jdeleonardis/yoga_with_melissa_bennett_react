@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {useLocation} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -6,6 +6,25 @@ import "./NavComponent.css"
  
 function NavComponent() {
   const location = useLocation();
+
+  // const [loggedInStatus, setLoginStatus] = useState([false]); 
+
+  // useEffect(() => {
+  //   fetch('api/token')
+  //   .then(res => {
+  //     //alert(res.status)
+  //     if (res.status === 200) {
+  //       setLoginStatus(true)
+  //     } else {
+  //       const error = new Error(res.error);
+  //       throw error;
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.error(err);
+  //     setLoginStatus(false)
+  //   });
+  // }, [loggedInStatus]); 
 
   return (
     <Navbar id="nav" collapseOnSelect expand="lg" variant="dark" fixed="top">
@@ -27,7 +46,13 @@ function NavComponent() {
           <Nav.Link id="link" href="/contact" className={location.pathname === "/contact" ? "active" : "inactive"}>Contact</Nav.Link>            
           {/* <Nav.Link id="link" href="/test" className={location.pathname === "/test" ? "active" : "inactive"}>Test Link</Nav.Link>   */}
           {/* <Nav.Link id="link" href="/login" className={location.pathname === "/login" ? "active" : "inactive"}>Admin</Nav.Link>                   */}
-          <Nav.Link id="link" href="/adminhome" className={location.pathname === "/adminhome" ? "active" : "inactive"}>Admin</Nav.Link>                  
+          <Nav.Link id="link" href="/adminhome" className={location.pathname === "/adminhome" ? "active" : "inactive"}>Admin</Nav.Link>   
+          
+          {/* {(loggedInStatus) ?   
+          <Nav.Link id="link" href="/adminhome" className={location.pathname === "/adminhome" ? "active" : "inactive"}>Logout</Nav.Link>  
+          :
+          null  
+          }     */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
