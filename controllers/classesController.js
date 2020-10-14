@@ -17,6 +17,12 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  createClass: function(req,res) {
+    db.Classes.create(req.body)
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  },  
+
   updateClassAttendanceByID: function(req,res) {
     db.Classes.findOneAndUpdate({ _id: req.params.id }, { $push: {names: req.body.name, emailAddresses: req.body.email } }, { new: true }) //need to be destructured?
     .then(dbModel => res.json(dbModel))

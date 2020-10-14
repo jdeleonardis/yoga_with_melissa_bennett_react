@@ -4,7 +4,8 @@ const classesController = require("../../controllers/classesController");
 // Matches with "/api/classes"
 router
     .route("/")
-    .get(classesController.findClassesAfterNow);
+    .get(classesController.findClassesAfterNow)
+    .post(classesController.createClass);
 
 // // Matches with "/api/users"
 // router
@@ -16,7 +17,7 @@ router
  router
     .route("/:id")
 //     .get(usersController.findUserById)  
-    .put(classesController.updateClassAttendanceByID);
+    .put(classesController.updateClassAttendanceByID);    
 //     .delete(usersController.removeUser);
 
 // // Matches with "/api/users/templates/:id"

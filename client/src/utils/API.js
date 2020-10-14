@@ -21,5 +21,9 @@ export default {
     //update a class with a registrant's info
     updateClassAttendance: function(id, contactInfo) {        
         return axios.put("/api/classes/" + id, contactInfo);
-    }
+    },
+
+    insertClass: function(classData) {
+        return axios.post("/api/classes", classData);
+    },
 };
