@@ -9,9 +9,10 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.0",
+    "moment": "^2.29.1",
     "mongojs": "^3.1.0",
-    "mongoose": "^5.10.5"
+    "mongoose": "^5.10.5",
+    "react-big-calendar": "^0.28.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

@@ -74,43 +74,43 @@ export default class Login extends Component {
     return (
       <div>
         <div id="login">
-          <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-              <div id="login-column" class="col-md-6">
-                <div id="login-box" class="col-md-12">
-                  <form id="login-form" class="form" onSubmit={this.onSubmit}>
-                    <h3 class="text-center">Login</h3>
-                      <div class="form-group">
-                        <label for="username">Userid:</label><br></br>
+          <div className="container">
+            <div id="login-row" className="row justify-content-center align-items-center">
+              <div id="login-column" className="col-md-6">
+                <div id="login-box" className="col-md-12">
+                  <form id="login-form" className="form" onSubmit={this.onSubmit}>
+                    <h3 className="text-center">Login</h3>
+                      <div className="form-group">
+                        <label htmlFor="username">Userid:</label><br></br>
                         <input 
                           type="text" 
                           name="userid" 
                           id="username" 
-                          class="form-control"
+                          className="form-control"
                           placeholder="Enter userid"
                           value={this.state.userid}
                           onChange={this.handleInputChange}
                           required>
                         </input>
                       </div>
-                      <div class="form-group">
-                        <label for="password">Password:</label><br></br>
+                      <div className="form-group">
+                        <label htmlFor="password">Password:</label><br></br>
                         <input 
                           type="password"
                           name="password"
                           id="password"
-                          class="form-control"
+                          className="form-control"
                           placeholder="Enter password"
                           value={this.state.password}
                           onChange={this.handleInputChange}
                           required>
                         </input>
                       </div>
-                      <div class="form-group">
-                        <label for="remember"><span>Remember me</span> 
+                      <div className="form-group">
+                        <label htmlFor="remember"><span>Remember me</span> 
                           <span><input id="remember" name="remember" type="checkbox" checked={this.state.remember} onChange={this.handleInputChange}></input></span>
                         </label><br></br>
-                        <input type="submit" name="submit" class="btn greenbtn" value="Submit"></input>
+                        <input type="submit" name="submit" className="btn greenbtn" value="Submit"></input>
                       </div>
                   </form>                  
                 </div>

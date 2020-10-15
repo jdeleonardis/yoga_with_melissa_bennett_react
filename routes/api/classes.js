@@ -2,10 +2,26 @@ const router = require("express").Router();
 const classesController = require("../../controllers/classesController");
 
 // Matches with "/api/classes"
+// router
+//     .route("/")
+//     .get(classesController.findClassesAfterNow)
+//     .get(classesController.findAllClasses)
+//     .post(classesController.createClass);
+
+// router
+//     .route("/allclasses")
+//     .get(classesController.findAllClasses);
+
+//   /api/classes
 router
-    .route("/")
-    .get(classesController.findClassesAfterNow)
+    .route("/")    
+    .get(classesController.findAllClasses)
     .post(classesController.createClass);
+
+//   /api/classes/nextclasses
+router
+    .route("/nextclasses")
+    .get(classesController.findClassesAfterNow);
 
 // // Matches with "/api/users"
 // router

@@ -14,7 +14,12 @@ export default {
     },
 
     //get a list of 3 classes after today
-    getClasses: function() {
+    getNextClasses: function() {
+        return axios.get("/api/classes/nextclasses");
+    },
+
+    //get all of the classes
+    getAllClasses: function() {
         return axios.get("/api/classes");
     },
 

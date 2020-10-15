@@ -17,6 +17,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  findAllClasses: function(req,res) {
+    db.Classes.find({})      
+      .then(dbModel => {
+        res.json(dbModel)
+      })
+      .catch(err => res.status(422).json(err));
+  },  
+
   createClass: function(req,res) {
     db.Classes.create(req.body)
     .then(dbModel => res.json(dbModel))

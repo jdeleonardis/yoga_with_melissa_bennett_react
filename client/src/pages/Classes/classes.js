@@ -43,7 +43,7 @@ function Classes() {
     };       
 
     const APIGetNextClasses = () => {        
-        API.getClasses()
+        API.getNextClasses()
           .then(res => {
             if (res.data.length === 0) {
               throw new Error("No results found.");

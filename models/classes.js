@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const classesSchema = new Schema({
+  title: {type: String, required: true},
   dateStart: { type: Date, required: true },
   dateEnd: { type: Date },
   location:  [

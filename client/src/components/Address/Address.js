@@ -3,9 +3,14 @@ import "./Address.css"
 
 function Address(props) {
 
+  console.log(props)
+
   return (
     <div className="col-lg-7">
-        <p>{props.classInfo.location[0].name}
+        <p>
+        {props.classInfo.title}
+        <br></br>
+        {props.classInfo.location[0].name}
         <br></br>
         {props.classInfo.location[0].addr1}
         <br></br>
