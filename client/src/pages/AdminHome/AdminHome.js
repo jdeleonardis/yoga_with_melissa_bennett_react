@@ -36,7 +36,6 @@ function AdminHome() {
             for (let i = 0; i < scheduledClasses.length; i++) {
                 scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
                 scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-                scheduledClasses[i].title = "test title"
                 scheduledClasses[i].allDay = false
             }
             
