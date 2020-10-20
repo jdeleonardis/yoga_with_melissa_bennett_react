@@ -1,0 +1,17 @@
+.modal
+{
+    margin : 0 auto;
+    margin-top: 20px;
+}
+
+.react-datetime-picker__wrapper {
+    border: none;
+}
+
+.class-form {
+    width: 400px;    
+}
+
+.class-form-group {
+    margin-top: 12px;    
+}

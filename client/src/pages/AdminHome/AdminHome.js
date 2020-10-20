@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
 import { Calendar, momentLocalizer } from "react-big-calendar";
+import ClassModal from "../../components/ClassModal/ClassModal";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function AdminHome() {
 
     const [classData, setClassData] = useState([]);
+
+    const [classModal, setClassModal] = useState({
+      id: "",
+      title: "",
+      dateStart: new Date(),
+      dateEnd: new Date(),
+      cancelled: false,
+      modalVisible: false,
+      reload: false
+    });  
 
     useEffect(() => {
         APIgetAllClasses();
@@ -61,19 +72,91 @@ function AdminHome() {
  
             })
             .catch(err => console.log(err)); 
-    }       
- 
+    }      
+    
+    //const selectSlot = ({ start, end }) => {
+    const selectSlot = (event) => {      
+      console.log(event)
+      //showModal("Select Slot",false)
+      
+      // const title = window.prompt('New Event name')
+      // if (title)
+      //   this.setState({
+      //     events: [
+      //       ...this.state.events,
+      //       {
+      //         start,
+      //         end,
+      //         title,
+      //       },
+      //     ],
+      //   })
+    }
+
+    const selectEvent = (event) => {            
+      //console.log(event)
+      setClassModal({...classModal,
+        id: event._id, 
+        title: event.title, 
+        dateStart: new Date(event.dateStart), 
+        dateEnd: new Date(event.dateEnd), 
+        location: event.location[0], 
+        cancelled: event.cancelled, 
+        modalVisible: true, 
+        reload: false});
+      //showModal("Select event",false)
+      // const title = window.prompt('New Event name')
+      // if (title)
+      //   this.setState({
+      //     events: [
+      //       ...this.state.events,
+      //       {
+      //         start,
+      //         end,
+      //         title,
+      //       },
+      //     ],
+      //   })
+    }    
+
+    // const showModal = (message,reload) => {
+    //   setClassModal({...classModal,modalVisible: true, reload: reload});
+    // };
+  
+    const hideModal = (reload) => {
+      setClassModal({...classModal,modalVisible: false, reload: false});
+        if (reload) {
+            window.location.reload();
+        }        
+    }; 
+
+    const onStartChange = (event) => {
+      setClassModal({...classModal, dateStart: new Date(event)})
+    } 
+
+    const onEndChange = (event) => {
+      setClassModal({...classModal, dateEnd: new Date(event)})
+    } 
+
+    const onLocationChange = (event) => {
+      setClassModal({...classModal, location: event})
+    } 
+
+    const onCancelledChange = (event) => {
+      setClassModal({...classModal, cancelled: event})
+    }             
+
     return (    
         <main className="container">
             <div className="row py-3">
                 <section className="col-lg-12">
                         <header>
-                            <h1>Admin Home</h1>
+                            <h1>Class Calendar</h1>
                         </header>        
                 </section>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
                 <section className="col-lg-12">
                     <div>
                         <p>test test test test</p>
@@ -82,13 +165,8 @@ function AdminHome() {
 
                     <button type="submit" onClick={logOut} className="btn greenbtn">Log out</button>
                     <button type="submit" onClick={APIaddClass} className="btn greenbtn">Add Class</button>
-                    {/* <div id="btnwrapper" class="pb-3">
-                        <a href="/classes">
-                            <button type="button" class="btn greenbtn">Class Information</button>
-                        </a>
-                    </div> */}
                 </section>     
-            </div>
+            </div> */}
 
             <div style={{ height: 700 }}>
                 <Calendar
@@ -125,8 +203,23 @@ function AdminHome() {
                           21
                         )
                       }
+                    onSelectEvent={selectEvent}
+                    onSelectSlot={selectSlot}  
+                    selectable={true}
                 />
             </div>
+
+            <ClassModal 
+                data={classModal}
+                onStartChange={onStartChange}
+                onEndChange={onEndChange}
+                onLocationChange={onLocationChange}
+                onCancelledChange={onCancelledChange}
+                onHide={hideModal}/>
+                {/* show={classModal.modalVisible}
+                onHide={hideModal}
+                body={classModal.modalText}
+                reload ={classModal.reload}/>    */}
 
         </main>
     );
