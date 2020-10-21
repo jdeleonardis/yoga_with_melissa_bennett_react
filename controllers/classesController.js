@@ -18,7 +18,8 @@ module.exports = {
   },
 
   findAllClasses: function(req,res) {
-    db.Classes.find({})      
+    db.Classes.find({})  
+      .populate("location")    
       .then(dbModel => {
         res.json(dbModel)
       })

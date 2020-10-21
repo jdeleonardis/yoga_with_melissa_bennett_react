@@ -12,15 +12,20 @@ function AdminHome() {
     const [classModal, setClassModal] = useState({
       id: "",
       title: "",
+      locationID: "",
+      locationName: "",
       dateStart: new Date(),
       dateEnd: new Date(),
       cancelled: false,
       modalVisible: false,
       reload: false
-    });  
+    });
+
+    const [activeLocations, setActiveLocations] = useState([]);
 
     useEffect(() => {
         APIgetAllClasses();
+        APIgetActiveLocations();
     }, []);
     
     moment.locale("en");
@@ -42,7 +47,7 @@ function AdminHome() {
             }
 
             let scheduledClasses = res.data;
-            //console.log(scheduledClasses)
+            // console.log(scheduledClasses)
         
             for (let i = 0; i < scheduledClasses.length; i++) {
                 scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
@@ -53,7 +58,22 @@ function AdminHome() {
             setClassData(scheduledClasses);
           })
           .catch(err => console.log(err));
-      }    
+      }  
+      
+    const APIgetActiveLocations = () => {        
+      API.getActiveLocations()
+        .then(res => {
+          if (res.data.length === 0) {
+            throw new Error("No results found.");
+          }
+          if (res.data.status === "error") {
+            throw new Error(res.data.message);
+          } 
+          //console.log(res.data)
+          setActiveLocations(res.data)    
+        })
+        .catch(err => console.log(err));
+    }       
 
     const APIaddClass = () => {        
         API.insertClass({
@@ -76,7 +96,7 @@ function AdminHome() {
     
     //const selectSlot = ({ start, end }) => {
     const selectSlot = (event) => {      
-      console.log(event)
+      //console.log(event)
       //showModal("Select Slot",false)
       
       // const title = window.prompt('New Event name')
@@ -100,7 +120,8 @@ function AdminHome() {
         title: event.title, 
         dateStart: new Date(event.dateStart), 
         dateEnd: new Date(event.dateEnd), 
-        location: event.location[0], 
+        locationID: event.location[0]._id, 
+        locationName: event.location[0].name, 
         cancelled: event.cancelled, 
         modalVisible: true, 
         reload: false});
@@ -138,8 +159,9 @@ function AdminHome() {
       setClassModal({...classModal, dateEnd: new Date(event)})
     } 
 
-    const onLocationChange = (event) => {
-      setClassModal({...classModal, location: event})
+    const onLocationChange = (event) => {      
+      let locationID = event.target.options[event.target.options.selectedIndex].getAttribute('data_key')
+      setClassModal({...classModal, locationID: locationID, locationName: event.target.value})
     } 
 
     const onCancelledChange = (event) => {
@@ -211,6 +233,7 @@ function AdminHome() {
 
             <ClassModal 
                 data={classModal}
+                locations={activeLocations}
                 onStartChange={onStartChange}
                 onEndChange={onEndChange}
                 onLocationChange={onLocationChange}

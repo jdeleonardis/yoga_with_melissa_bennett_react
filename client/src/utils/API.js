@@ -28,7 +28,18 @@ export default {
         return axios.put("/api/classes/" + id, contactInfo);
     },
 
+    //insert a new class
     insertClass: function(classData) {
         return axios.post("/api/classes", classData);
     },
+
+    //get all of the active locations
+    getActiveLocations: function() {
+        return axios.get("/api/locations/active");
+    },
+
+    //get all locations, regardless of status
+    getAllLocations: function() {
+        return axios.get("/api/locations");
+    },    
 };

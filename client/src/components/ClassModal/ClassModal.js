@@ -6,8 +6,14 @@ import Modal from "react-bootstrap/Modal";
 
 
 function ClassModal(props) {
-  console.log(props)
+  //console.log(props.data)
   Moment.locale('en')
+
+  let locations = props.locations.map((location) =>
+    <option key={location._id} data_key={location._id}>{location.name}</option>
+  );
+
+  // console.log(locations)
 
   return (
     <>
@@ -77,7 +83,10 @@ function ClassModal(props) {
                 <div className="class-form-group">
                     <label htmlFor="location">Location:</label>
                     {/* <input type="text" id="name" className="form-control" required value={emailInfo.name} onChange={onNameChange} name="from_name"/> */}
-                    <input type="text" id="location" className="form-control" required value={props.data.location} name="location"/>
+                    {/* <input type="text" id="location" className="form-control" required value={props.data.location} name="location"/> */}
+                    <select id="location" name="location" className="form-control" value={props.data.locationName} onChange={props.onLocationChange}>
+                      {locations}
+                    </select>
                 </div>                                
                 <div className="class-form-group">
                     <label htmlFor="cancelled">cancelled:</label>
