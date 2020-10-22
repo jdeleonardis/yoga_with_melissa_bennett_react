@@ -60,3 +60,7 @@ body {
 #footerfont{
   margin-top: 3px;
 }
+
+textarea {
+  resize: none;
+}

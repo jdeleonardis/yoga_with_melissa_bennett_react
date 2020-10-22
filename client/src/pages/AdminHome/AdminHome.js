@@ -17,6 +17,7 @@ function AdminHome() {
       dateStart: new Date(),
       dateEnd: new Date(),
       cancelled: false,
+      cancelemail: "",
       modalVisible: false,
       reload: false
     });
@@ -145,11 +146,31 @@ function AdminHome() {
     // };
   
     const hideModal = (reload) => {
-      setClassModal({...classModal,modalVisible: false, reload: false});
+      // console.log(classModal)
+      setClassModal({...classModal, modalVisible: false, reload: false});
         if (reload) {
             window.location.reload();
         }        
     }; 
+
+    const changeHandler = (event) => {
+      let valueChanged = event.target.name
+      // console.log(valueChanged)
+      switch(valueChanged) {
+        case "title":
+        case "cancelemail":
+          setClassModal({...classModal, [valueChanged]: event.target.value})
+          break;
+        case "locationName":          
+          let locationID = event.target.options[event.target.options.selectedIndex].getAttribute('data_key')
+          setClassModal({...classModal, locationID: locationID, locationName: event.target.value})
+          break;
+        case "cancelled":
+          setClassModal({...classModal, cancelled: event.target.checked})
+          break;
+        default:
+      }      
+    }
 
     const onStartChange = (event) => {
       setClassModal({...classModal, dateStart: new Date(event)})
@@ -158,15 +179,6 @@ function AdminHome() {
     const onEndChange = (event) => {
       setClassModal({...classModal, dateEnd: new Date(event)})
     } 
-
-    const onLocationChange = (event) => {      
-      let locationID = event.target.options[event.target.options.selectedIndex].getAttribute('data_key')
-      setClassModal({...classModal, locationID: locationID, locationName: event.target.value})
-    } 
-
-    const onCancelledChange = (event) => {
-      setClassModal({...classModal, cancelled: event})
-    }             
 
     return (    
         <main className="container">
@@ -236,9 +248,8 @@ function AdminHome() {
                 locations={activeLocations}
                 onStartChange={onStartChange}
                 onEndChange={onEndChange}
-                onLocationChange={onLocationChange}
-                onCancelledChange={onCancelledChange}
-                onHide={hideModal}/>
+                onHide={hideModal}
+                changeHandler={changeHandler}/>
                 {/* show={classModal.modalVisible}
                 onHide={hideModal}
                 body={classModal.modalText}

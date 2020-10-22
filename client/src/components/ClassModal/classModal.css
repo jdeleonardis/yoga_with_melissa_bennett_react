@@ -1,6 +1,10 @@
-.modal
-{
-    margin : 0 auto;
+
+.class-modal-regular {
+    width: 40vw;    
+    max-width: 40vw;
+}
+
+.modal {
     margin-top: 20px;
 }
 
@@ -14,4 +18,8 @@
 
 .class-form-group {
     margin-top: 12px;    
+}
+
+.invisible {
+    display: none;
 }

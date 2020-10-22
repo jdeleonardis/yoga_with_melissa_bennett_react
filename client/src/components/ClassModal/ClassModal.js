@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 
 
 function ClassModal(props) {
-  //console.log(props.data)
+  // console.log(props.data)
   Moment.locale('en')
 
   let locations = props.locations.map((location) =>
@@ -18,7 +18,12 @@ function ClassModal(props) {
   return (
     <>
               {/*what goes here for ON HIDE??????? */}
-      <Modal show={props.data.modalVisible} onHide={props.data.reload}>
+              {/* <Modal dialogClassName="class-modal-regular" */}
+        <Modal dialogClassName="class-modal-regular"
+             show={props.data.modalVisible} 
+             //onHide={props.hideModal}
+             backdrop="static"
+             keyboard={false}>
         <Modal.Body>
 
         {/* <form id="contact-form" onSubmit={handleSubmit}> */}
@@ -26,13 +31,13 @@ function ClassModal(props) {
                 <div className="class-form-group">
                     <label htmlFor="title">Title</label>
                     {/* <input type="text" id="name" className="form-control" required value={emailInfo.name} onChange={onNameChange} name="from_name"/> */}
-                    <input type="text" id="title" className="form-control" required value={props.data.title} onChange={props.onChange} name="title"/>
+                    <input type="text" id="title" className="form-control" required value={props.data.title} onChange={props.changeHandler} name="title"/>
                 </div>
                 <div className="class-form-group">
-                  <label htmlFor="start">Start Date and Time:</label>
+                  <label htmlFor="dateStart">Start Date and Time:</label>
                   <DateTimePicker
-                    id="start"
-                    name="start"    
+                    id="dateStart"
+                    name="dateStart"    
                     className="form-control"               
                     required
                     amPmAriaLabel="Select AM/PM"
@@ -48,17 +53,16 @@ function ClassModal(props) {
                     clearIcon={null}
                     disableClock={true}
                     locale="en-US"
-                    //onChange={props.onChange}
                     onChange={props.onStartChange}
                     value={new Date(props.data.dateStart)}                    
                     // <input type="datetime-local" id="start" className="form-control" onChange={props.onChange} required value={Moment(props.data.dateStart).format('MM/DD/YYYY') + "  " + Moment(props.data.dateStart).format('h:mm A')} name="start"/>                    
                   />                 
                 </div>
                 <div className="class-form-group">
-                  <label htmlFor="end">End Date and Time:</label>
+                  <label htmlFor="dateEnd">End Date and Time:</label>
                   <DateTimePicker
-                    id="end"
-                    name="end"    
+                    id="dateEnd"
+                    name="dateEnd"    
                     className="form-control"               
                     required
                     amPmAriaLabel="Select AM/PM"
@@ -81,24 +85,24 @@ function ClassModal(props) {
                 </div>                
 
                 <div className="class-form-group">
-                    <label htmlFor="location">Location:</label>
+                    <label htmlFor="locationName">Location:</label>
                     {/* <input type="text" id="name" className="form-control" required value={emailInfo.name} onChange={onNameChange} name="from_name"/> */}
                     {/* <input type="text" id="location" className="form-control" required value={props.data.location} name="location"/> */}
-                    <select id="location" name="location" className="form-control" value={props.data.locationName} onChange={props.onLocationChange}>
+                    <select id="locationName" name="locationName" className="form-control" value={props.data.locationName} onChange={props.changeHandler}>
                       {locations}
                     </select>
                 </div>                                
                 <div className="class-form-group">
                     <label htmlFor="cancelled">cancelled:</label>
                     {/* <input type="text" id="name" className="form-control" required value={emailInfo.name} onChange={onNameChange} name="from_name"/> */}
-                    <input type="text" id="Cancelled" className="form-control" required value={props.data.cancelled} name="cancelled"/>
-                </div>                                      
+                    <input type="checkbox" id="cancelled" className="form-control" required checked={props.data.cancelled} value={props.data.cancelled} onChange={props.changeHandler} name="cancelled"/>
+                </div>       
+                <div className={`class-form-group ${props.data.cancelled ? "" : "invisible"}`}>
+                    <label htmlFor="cancelemail">cancel email:</label>
+                    <textarea className="form-control" id="cancelemail" rows="5" required value={props.data.cancelemail} onChange={props.changeHandler} name="cancelemail"/>
+                </div>                                                             
 
-                {/* <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Your email address</label>
-                    <input type="email" id="email" className="form-control" required value={emailInfo.email} onChange={onEmailChange} name="from_email"/>
-                    <input type="email" id="email" className="form-control" required name="from_email"/>
-                </div> */}
+
                 {/* <button type="submit" className="btn greenbtn">Submit</button> */}
         </form>
         
@@ -110,7 +114,7 @@ function ClassModal(props) {
 
           <button 
             onClick={() => props.onHide(props.reload)}     
-            className="btn greenbtn mb-3"
+            className="btn greenbtn"
           >
             Close
           </button>   
