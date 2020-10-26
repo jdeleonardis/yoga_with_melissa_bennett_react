@@ -1,12 +1,17 @@
 //todo: 
 //add logout
 //add dotenv
-//add insert class
 //add location maintenance
 //format the modal form using react-bootstrap form
-//set the default date on reload
 //set the event if clicking on a month or day
-
+//add validation to the modal
+//  --add a title
+//  --add a location
+//  --add an email message when cancelled selected
+//  --add end date after start date
+//  --if end date is odd, display
+//add sending email with cancellation
+//change colors on calendar
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
@@ -14,6 +19,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import ClassModal from "../../components/ClassModal/ClassModal";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./AdminHome.css";
 
 function AdminHome() {
 
@@ -29,7 +35,8 @@ function AdminHome() {
       cancelled: false,
       cancelemail: "",
       modalVisible: false,
-      reload: false
+      reload: false,
+      modalTitle: ""
     });
 
     const [activeLocations, setActiveLocations] = useState([]);
@@ -89,77 +96,55 @@ function AdminHome() {
     }       
 
     const APIaddClass = () => {        
-      API.insertClass({
-          dateStart: "2020-10-22T17:00:00.000Z",
-          dateEnd: "2020-10-22T18:00:00.000Z",
-          title: "Yoga For Veterans",
-          cancelled: false,
-          location: [ 
-              "5f7c6a86bfd22b14c03ba273"
-          ]
-        })
-          .then(res => {
-            if (res.data.status === "error") {
+      API.insertClass(classModal)
+      .then(res => {
+          if (res.data.status === "error") {
               throw new Error(res.data.message);
-            }      
-
-          })
-          .catch(err => console.log(err)); 
+          }        
+          return res          
+      })
+      .then(res => {
+        APIgetAllClasses();
+        return res
+      })
+      .then(res => {
+        setDateToLandOn(classModal.dateStart)      
+      })
+      .catch(err => console.log(err));
     }     
-    
-    // const APIupdateClassInfo = () => {        
-    //   API.updateClassInfo(classModal.id, classModal)
-    //   .then(res => {
-    //       if (res.data.status === "error") {
-    //           throw new Error(res.data.message);
-    //       }                    
-    //   })
-    //   .catch(err => console.log(err));  
-    // }    
 
+    const APIupdateClass = () => {        
+      API.updateClassInfo(classModal.id, classModal)
+      .then(res => {
+          if (res.data.status === "error") {
+              throw new Error(res.data.message);
+          }        
+          return res          
+      })
+      .then(res => {
+        APIgetAllClasses();
+        return res
+      })
+      .then(res => {
+        setDateToLandOn(classModal.dateStart)      
+      })
+      .catch(err => console.log(err));
+    }    
 
-    // const processClassAttendancePromise = () => {
-    //   return new Promise(resolve => {
-    //       const contactInfo = {
-    //           name: contactNameInfo.name,
-    //           email: contactEmailInfo.email
-    //       }
-    //       classData.forEach(classData => {
-    //           if (classData.selected === true) {    
-    //               API.updateClassAttendance(classData._id, contactInfo)
-    //               .then(res => {
-    //                   if (res.data.status === "error") {
-    //                       throw new Error(res.data.message);
-    //                   }                    
-    //               })
-    //               .catch(err => console.log(err));                
-    //           }
-    //       })
-    //   })
-    // }
-    
-    //const selectSlot = ({ start, end }) => {
     const selectSlot = (event) => {      
       //console.log(event)
-      //showModal("Select Slot",false)
-      
-      // const title = window.prompt('New Event name')
-      // if (title)
-      //   this.setState({
-      //     events: [
-      //       ...this.state.events,
-      //       {
-      //         start,
-      //         end,
-      //         title,
-      //       },
-      //     ],
-      //   })
+      setClassModal({modalTitle: "Create a Class",
+        dateStart: new Date(event.start), 
+        dateEnd: new Date(event.end), 
+        location: "",
+        modalVisible: true, 
+        reload: false});
     }
 
     const selectEvent = (event) => {            
       //console.log(event)
       setClassModal({...classModal,
+        modalTitle: "Update a Class",
         id: event._id, 
         title: event.title, 
         dateStart: new Date(event.dateStart), 
@@ -169,24 +154,7 @@ function AdminHome() {
         cancelled: event.cancelled, 
         modalVisible: true, 
         reload: false});
-      //showModal("Select event",false)
-      // const title = window.prompt('New Event name')
-      // if (title)
-      //   this.setState({
-      //     events: [
-      //       ...this.state.events,
-      //       {
-      //         start,
-      //         end,
-      //         title,
-      //       },
-      //     ],
-      //   })
     }    
-
-    // const showModal = (message,reload) => {
-    //   setClassModal({...classModal,modalVisible: true, reload: reload});
-    // };
   
     const hideModal = (reload) => {
       setClassModal({...classModal, modalVisible: false, reload: false});
@@ -224,21 +192,13 @@ function AdminHome() {
 
     const onSubmit = () => {
       setClassModal({...classModal, modalVisible: false, reload: false});
-      API.updateClassInfo(classModal.id, classModal)
-      .then(res => {
-          if (res.data.status === "error") {
-              throw new Error(res.data.message);
-          }        
-          return res          
-      })
-      .then(res => {
-        APIgetAllClasses();
-        return res
-      })
-      .then(res => {
-        setDateToLandOn(classModal.dateStart)      
-      })
-      .catch(err => console.log(err));
+      
+      if (classModal.id === "" || classModal.id === undefined) {
+        APIaddClass();        
+      }
+      else {
+        APIupdateClass();
+      }
     } 
 
     return (    
@@ -250,32 +210,10 @@ function AdminHome() {
                         </header>        
                 </section>
             </div>
-
-            {/* <div className="row">
-                <section className="col-lg-12">
-                    <div>
-                        <p>test test test test</p>
-                    </div>
-
-
-                    <button type="submit" onClick={logOut} className="btn greenbtn">Log out</button>
-                    <button type="submit" onClick={APIaddClass} className="btn greenbtn">Add Class</button>
-                </section>     
-            </div> */}
-
-            <div style={{ height: 700 }}>
+            {/* height 1150 shows entire calendar */}
+            <div style={{ height: 589 }}> 
                 <Calendar
                     events={classData}
-                    // startAccessor='dateStart'
-                    // endAccessor='dateEnd'
-                    // events={[
-                    //     {
-                    //       title: "Yoga Class!",
-                    //       allDay: false,
-                    //       start: new Date(2020, 9, 15, 15, 0), // 10/15 3pm
-                    //       end: new Date(2020, 9, 15, 16, 0) // 10/15 4pm
-                    //     }
-                    //   ]}
                     localizer={localizer}
                     step={30}
                     timeslots={1}
@@ -309,6 +247,14 @@ function AdminHome() {
                 />
             </div>
 
+            <div className="row py-3">
+                <section className="col-lg-12">
+                        <header>
+                            <h1>Locations</h1>
+                        </header>        
+                </section>
+            </div>
+
             <ClassModal 
                 data={classModal}
                 locations={activeLocations}
@@ -317,11 +263,7 @@ function AdminHome() {
                 onSubmit={onSubmit}
                 onHide={hideModal}
                 changeHandler={changeHandler}/>
-                {/* show={classModal.modalVisible}
-                onHide={hideModal}
-                body={classModal.modalText}
-                reload ={classModal.reload}/>    */}
-
+                
         </main>
     );
 };
