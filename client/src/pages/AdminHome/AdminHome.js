@@ -9,6 +9,7 @@
 //  --add end date after start date
 //  --if end date is odd, display
 //add sending email with cancellation
+//  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //change colors on calendar
 
 import React, { useState, useEffect } from "react";
