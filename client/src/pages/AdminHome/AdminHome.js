@@ -1,8 +1,6 @@
 //todo: 
-//add logout
 //add dotenv
 //add location maintenance
-//format the modal form using react-bootstrap form
 //set the event if clicking on a month or day
 //add validation to the modal
 //  --add a title
@@ -204,11 +202,18 @@ function AdminHome() {
     return (    
         <main className="container">
             <div className="row py-3">
-                <section className="col-lg-12">
+                <section className="col-lg-10">
                         <header>
                             <h1>Class Calendar</h1>
                         </header>        
                 </section>
+                <section className="col-lg-2">
+                  <button 
+                    onClick={logOut}     
+                    className="btn greenbtn logoutbtn">
+                    Log Out
+                  </button>       
+                </section>                
             </div>
             {/* height 1150 shows entire calendar */}
             <div style={{ height: 589 }}> 

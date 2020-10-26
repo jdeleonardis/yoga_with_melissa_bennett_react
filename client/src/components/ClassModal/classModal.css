@@ -1,11 +1,11 @@
 
 .class-modal-regular {
-    width: 40vw;    
-    max-width: 40vw;
+    width: 30vw;    
+    max-width: 30vw;
 }
 
 .modal {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .react-datetime-picker__wrapper {
@@ -20,6 +20,18 @@
     margin-top: 12px;    
 }
 
+.class-form-group-cancelled {
+    margin: 12px 0px 6px;    
+}
+
 .invisible {
     display: none;
+}
+
+.classesModalFooter {
+    padding: 0;
+}
+
+.classesModalBody {
+    padding: 10px 16px 0px;
 }

@@ -17,7 +17,7 @@ const Checkbox = ({ classInfo, onCheckboxChange }) => (
         {/* remove the .utc to show local... */}
         {/* {Moment.utc(classInfo.dateStart).format('MM/DD/YYYY') + "  " + Moment.utc(classInfo.dateStart).format('h:mm A') + "-" + Moment.utc(classInfo.dateEnd).format('h:mm A')}  */}
         {/* {Moment(classInfo.dateStart).format('MM/DD/YYYY') + "  " + Moment(classInfo.dateStart).format('h:mm A') + "-" + Moment(classInfo.dateEnd).format('h:mm A')} */}
-        {Moment(classInfo.dateStart).format('MM/DD/YYYY')}<br></br>
+        {Moment(classInfo.dateStart).format('dddd, MMMM Do, YYYY')}<br></br>
         {Moment(classInfo.dateStart).format('h:mm A') + "-" + Moment(classInfo.dateEnd).format('h:mm A')}
       </label>
     </div>

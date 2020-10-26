@@ -1,3 +1,7 @@
+.logoutbtn {  
+  float: right;
+}
+
 .rbc-allday-cell {
     display: none;
   }
