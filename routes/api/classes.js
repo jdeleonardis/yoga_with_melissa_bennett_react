@@ -36,6 +36,11 @@ router
     .put(classesController.updateClassAttendanceByID);    
 //     .delete(usersController.removeUser);
 
+//   /api/classes/update/:id
+router
+    .route("/update/:id")
+    .put(classesController.updateClassByID);
+
 // // Matches with "/api/users/templates/:id"
 // router
 //     .route("/templates/:userid")  

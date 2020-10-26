@@ -1,3 +1,13 @@
+//todo: 
+//add logout
+//add dotenv
+//add insert class
+//add location maintenance
+//format the modal form using react-bootstrap form
+//set the default date on reload
+//set the event if clicking on a month or day
+
+
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -12,7 +22,7 @@ function AdminHome() {
     const [classModal, setClassModal] = useState({
       id: "",
       title: "",
-      locationID: "",
+      location: "",
       locationName: "",
       dateStart: new Date(),
       dateEnd: new Date(),
@@ -23,6 +33,8 @@ function AdminHome() {
     });
 
     const [activeLocations, setActiveLocations] = useState([]);
+
+    const [dateToLandOn, setDateToLandOn] = useState(new Date());
 
     useEffect(() => {
         APIgetAllClasses();
@@ -41,25 +53,25 @@ function AdminHome() {
     }  
 
     const APIgetAllClasses = () => {
-        API.getAllClasses()
-          .then(res => {
-            if (res.data.status === "error") {
-              throw new Error(res.data.message);
-            }
+      API.getAllClasses()
+        .then(res => {
+          if (res.data.status === "error") {
+            throw new Error(res.data.message);
+          }
 
-            let scheduledClasses = res.data;
-            // console.log(scheduledClasses)
-        
-            for (let i = 0; i < scheduledClasses.length; i++) {
-                scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-                scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-                scheduledClasses[i].allDay = false
-            }
-            
-            setClassData(scheduledClasses);
-          })
-          .catch(err => console.log(err));
-      }  
+          let scheduledClasses = res.data;
+          // console.log(scheduledClasses)
+      
+          for (let i = 0; i < scheduledClasses.length; i++) {
+              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              scheduledClasses[i].allDay = false
+          }
+          
+          setClassData(scheduledClasses);
+        })
+        .catch(err => console.log(err));
+    }  
       
     const APIgetActiveLocations = () => {        
       API.getActiveLocations()
@@ -77,23 +89,54 @@ function AdminHome() {
     }       
 
     const APIaddClass = () => {        
-        API.insertClass({
-            dateStart: "2020-10-22T17:00:00.000Z",
-            dateEnd: "2020-10-22T18:00:00.000Z",
-            title: "Yoga For Veterans",
-            cancelled: false,
-            location: [ 
-                "5f7c6a86bfd22b14c03ba273"
-            ]
+      API.insertClass({
+          dateStart: "2020-10-22T17:00:00.000Z",
+          dateEnd: "2020-10-22T18:00:00.000Z",
+          title: "Yoga For Veterans",
+          cancelled: false,
+          location: [ 
+              "5f7c6a86bfd22b14c03ba273"
+          ]
+        })
+          .then(res => {
+            if (res.data.status === "error") {
+              throw new Error(res.data.message);
+            }      
+
           })
-            .then(res => {
-              if (res.data.status === "error") {
-                throw new Error(res.data.message);
-              }      
- 
-            })
-            .catch(err => console.log(err)); 
-    }      
+          .catch(err => console.log(err)); 
+    }     
+    
+    // const APIupdateClassInfo = () => {        
+    //   API.updateClassInfo(classModal.id, classModal)
+    //   .then(res => {
+    //       if (res.data.status === "error") {
+    //           throw new Error(res.data.message);
+    //       }                    
+    //   })
+    //   .catch(err => console.log(err));  
+    // }    
+
+
+    // const processClassAttendancePromise = () => {
+    //   return new Promise(resolve => {
+    //       const contactInfo = {
+    //           name: contactNameInfo.name,
+    //           email: contactEmailInfo.email
+    //       }
+    //       classData.forEach(classData => {
+    //           if (classData.selected === true) {    
+    //               API.updateClassAttendance(classData._id, contactInfo)
+    //               .then(res => {
+    //                   if (res.data.status === "error") {
+    //                       throw new Error(res.data.message);
+    //                   }                    
+    //               })
+    //               .catch(err => console.log(err));                
+    //           }
+    //       })
+    //   })
+    // }
     
     //const selectSlot = ({ start, end }) => {
     const selectSlot = (event) => {      
@@ -121,7 +164,7 @@ function AdminHome() {
         title: event.title, 
         dateStart: new Date(event.dateStart), 
         dateEnd: new Date(event.dateEnd), 
-        locationID: event.location[0]._id, 
+        location: event.location[0]._id, 
         locationName: event.location[0].name, 
         cancelled: event.cancelled, 
         modalVisible: true, 
@@ -146,7 +189,6 @@ function AdminHome() {
     // };
   
     const hideModal = (reload) => {
-      // console.log(classModal)
       setClassModal({...classModal, modalVisible: false, reload: false});
         if (reload) {
             window.location.reload();
@@ -163,7 +205,7 @@ function AdminHome() {
           break;
         case "locationName":          
           let locationID = event.target.options[event.target.options.selectedIndex].getAttribute('data_key')
-          setClassModal({...classModal, locationID: locationID, locationName: event.target.value})
+          setClassModal({...classModal, location: locationID, locationName: event.target.value})
           break;
         case "cancelled":
           setClassModal({...classModal, cancelled: event.target.checked})
@@ -178,6 +220,25 @@ function AdminHome() {
 
     const onEndChange = (event) => {
       setClassModal({...classModal, dateEnd: new Date(event)})
+    } 
+
+    const onSubmit = () => {
+      setClassModal({...classModal, modalVisible: false, reload: false});
+      API.updateClassInfo(classModal.id, classModal)
+      .then(res => {
+          if (res.data.status === "error") {
+              throw new Error(res.data.message);
+          }        
+          return res          
+      })
+      .then(res => {
+        APIgetAllClasses();
+        return res
+      })
+      .then(res => {
+        setDateToLandOn(classModal.dateStart)      
+      })
+      .catch(err => console.log(err));
     } 
 
     return (    
@@ -220,7 +281,12 @@ function AdminHome() {
                     timeslots={1}
                     defaultView='week'
                     views={['month','week','day']}
-                    defaultDate={new Date()}
+                    // defaultDate={new Date()}
+                    defaultDate={dateToLandOn}
+                    date={dateToLandOn}
+                    onNavigate={dateToLandOn => {
+                      setDateToLandOn(dateToLandOn);
+                    }}
                     min={
                         new Date(
                           today.getFullYear(), 
@@ -248,6 +314,7 @@ function AdminHome() {
                 locations={activeLocations}
                 onStartChange={onStartChange}
                 onEndChange={onEndChange}
+                onSubmit={onSubmit}
                 onHide={hideModal}
                 changeHandler={changeHandler}/>
                 {/* show={classModal.modalVisible}

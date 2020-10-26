@@ -23,6 +23,11 @@ export default {
         return axios.get("/api/classes");
     },
 
+    //update the information about a class
+    updateClassInfo: function(id, classInfo) {        
+        return axios.put("/api/classes/update/" + id, classInfo);
+    },    
+
     //update a class with a registrant's info
     updateClassAttendance: function(id, contactInfo) {        
         return axios.put("/api/classes/" + id, contactInfo);

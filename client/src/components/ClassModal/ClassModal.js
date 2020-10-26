@@ -113,6 +113,13 @@ function ClassModal(props) {
           {/*what goes here???? */}
 
           <button 
+            onClick={props.onSubmit}     
+            className="btn greenbtn"
+          >
+            Submit
+          </button>  
+
+          <button 
             onClick={() => props.onHide(props.reload)}     
             className="btn greenbtn"
           >
