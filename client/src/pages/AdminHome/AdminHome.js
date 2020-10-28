@@ -3,11 +3,7 @@
 //add location maintenance
 //set the event if clicking on a month or day
 //add validation to the modal
-//  --add a title
-//  --add a location
 //  --add an email message when cancelled selected
-//  --add end date after start date
-//  --if end date is odd, display
 //add sending email with cancellation
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //  --https://www.emailjs.com/docs/sdk/send/
@@ -23,6 +19,8 @@ import "./AdminHome.css";
 
 function AdminHome() {
 
+    const allErrors = {};
+
     const [classData, setClassData] = useState([]);
 
     const [classModal, setClassModal] = useState({
@@ -36,12 +34,15 @@ function AdminHome() {
       cancelemail: "",
       modalVisible: false,
       reload: false,
-      modalTitle: ""
+      modalTitle: "",
+      errors: {}
     });
 
     const [activeLocations, setActiveLocations] = useState([]);
 
     const [dateToLandOn, setDateToLandOn] = useState(new Date());
+
+    const [validated, setValidated] = useState(false);
 
     useEffect(() => {
         APIgetAllClasses();
@@ -76,6 +77,7 @@ function AdminHome() {
           }
           
           setClassData(scheduledClasses);
+          setValidated(false)
         })
         .catch(err => console.log(err));
     }  
@@ -132,28 +134,34 @@ function AdminHome() {
     }    
 
     const selectSlot = (event) => {      
-      //console.log(event)
       setClassModal({modalTitle: "Create a Class",
-        dateStart: new Date(event.start), 
-        dateEnd: new Date(event.end), 
+        //dateStart: new Date(event.start), 
+        dateStart: moment(event.start).format("YYYY-MM-DDThh:mm"),
+        //dateEnd: new Date(event.end), 
+        dateEnd: moment(event.end).format("YYYY-MM-DDThh:mm"),
         location: "",
         modalVisible: true, 
-        reload: false});
+        reload: false,
+        errors: {}
+      });
     }
 
     const selectEvent = (event) => {            
-      //console.log(event)
       setClassModal({...classModal,
         modalTitle: "Update a Class",
         id: event._id, 
         title: event.title, 
-        dateStart: new Date(event.dateStart), 
-        dateEnd: new Date(event.dateEnd), 
+        //dateStart: new Date(event.dateStart), 
+        dateStart: moment(event.dateStart).format("YYYY-MM-DDThh:mm"),
+        //dateEnd: new Date(event.dateEnd), 
+        dateEnd: moment(event.dateEnd).format("YYYY-MM-DDThh:mm"),        
         location: event.location[0]._id, 
         locationName: event.location[0].name, 
         cancelled: event.cancelled, 
         modalVisible: true, 
-        reload: false});
+        reload: false,
+        errors: {}
+      });
     }    
   
     const hideModal = (reload) => {
@@ -165,7 +173,6 @@ function AdminHome() {
 
     const changeHandler = (event) => {
       let valueChanged = event.target.name
-      // console.log(valueChanged)
       switch(valueChanged) {
         case "title":
         case "cancelemail":
@@ -183,21 +190,53 @@ function AdminHome() {
     }
 
     const onStartChange = (event) => {
-      setClassModal({...classModal, dateStart: new Date(event)})
+      //console.log(event.target.value)
+      setClassModal({...classModal, dateStart: event.target.value})
+      //setClassModal({...classModal, dateStart: new Date(event)})
     } 
 
     const onEndChange = (event) => {
-      setClassModal({...classModal, dateEnd: new Date(event)})
+      setClassModal({...classModal, dateEnd: event.target.value})
+      //setClassModal({...classModal, dateEnd: new Date(event)})
     } 
 
-    const onSubmit = () => {
-      setClassModal({...classModal, modalVisible: false, reload: false});
-      
-      if (classModal.id === "" || classModal.id === undefined) {
-        APIaddClass();        
+    const validateClass = () => {
+      setValidated(false);
+
+      if (classModal.title === "" || classModal.title === undefined) {
+        allErrors.title = true;        
       }
-      else {
-        APIupdateClass();
+
+      if (classModal.location === "" || classModal.location === undefined) {
+        allErrors.location = true;
+      }
+
+      if (classModal.dateStart > classModal.dateEnd) {
+        allErrors.date = true;        
+      }  
+    }
+
+    const onClassSubmit = async event => {
+
+      event.preventDefault();
+      event.stopPropagation();
+      
+      //validate date in class modal
+      validateClass();
+
+      //if there are no errors, reset everything and save data
+      if (Object.keys(allErrors).length === 0) {
+        setValidated(true);
+        setClassModal({...classModal, modalVisible: false, reload: false, errors: {}});    
+        if (classModal.id === "" || classModal.id === undefined) {
+          APIaddClass();        
+        }
+        else {
+          APIupdateClass();
+        }    
+      }
+      else{
+        setClassModal({...classModal, errors: allErrors})
       }
     } 
 
@@ -232,6 +271,7 @@ function AdminHome() {
                     onNavigate={dateToLandOn => {
                       setDateToLandOn(dateToLandOn);
                     }}
+                    //min and max are min and max times - 8am to 9pm
                     min={
                         new Date(
                           today.getFullYear(), 
@@ -267,9 +307,10 @@ function AdminHome() {
                 locations={activeLocations}
                 onStartChange={onStartChange}
                 onEndChange={onEndChange}
-                onSubmit={onSubmit}
+                onClassSubmit={onClassSubmit}
                 onHide={hideModal}
-                changeHandler={changeHandler}/>
+                changeHandler={changeHandler}
+                validated={validated}/>
                 
         </main>
     );

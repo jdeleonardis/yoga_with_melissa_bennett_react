@@ -28,10 +28,14 @@
     display: none;
 }
 
-.classesModalFooter {
+/* .classesModalFooter {
     padding: 0;
-}
+} */
 
 .classesModalBody {
-    padding: 10px 16px 0px;
+    padding: 10px 16px 10px;
+}
+
+.modalClassesButtons {
+    float: right;
 }
