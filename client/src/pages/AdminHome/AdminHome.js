@@ -2,12 +2,14 @@
 //add dotenv
 //add location maintenance
 //set the event if clicking on a month or day
-//add validation to the modal
-//  --add an email message when cancelled selected
 //add sending email with cancellation
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //  --https://www.emailjs.com/docs/sdk/send/
-//change colors on calendar
+//change colors on calendar - normal, cancelled
+//figure out how to add first user securely
+//"pretty up" attendees
+//add in maximum attendees
+//put app in strict mode? Index.js
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
@@ -35,6 +37,9 @@ function AdminHome() {
       modalVisible: false,
       reload: false,
       modalTitle: "",
+      showAttendees: false,
+      attendeeNames: [],
+      attendeeEmailAddresses: [],
       errors: {}
     });
 
@@ -140,13 +145,15 @@ function AdminHome() {
         //dateEnd: new Date(event.end), 
         dateEnd: moment(event.end).format("YYYY-MM-DDThh:mm"),
         location: "",
+        attendeeNames: [],
+        attendeeEmailAddresses: [],
         modalVisible: true, 
         reload: false,
         errors: {}
       });
     }
 
-    const selectEvent = (event) => {            
+    const selectEvent = (event) => {    
       setClassModal({...classModal,
         modalTitle: "Update a Class",
         id: event._id, 
@@ -157,6 +164,8 @@ function AdminHome() {
         dateEnd: moment(event.dateEnd).format("YYYY-MM-DDThh:mm"),        
         location: event.location[0]._id, 
         locationName: event.location[0].name, 
+        attendeeNames: event.names,
+        attendeeEmailAddresses: event.emailAddresses,
         cancelled: event.cancelled, 
         modalVisible: true, 
         reload: false,
@@ -165,7 +174,7 @@ function AdminHome() {
     }    
   
     const hideModal = (reload) => {
-      setClassModal({...classModal, modalVisible: false, reload: false});
+      setClassModal({...classModal, modalVisible: false, reload: false, showAttendees: false});
         if (reload) {
             window.location.reload();
         }        
@@ -213,7 +222,11 @@ function AdminHome() {
 
       if (classModal.dateStart > classModal.dateEnd) {
         allErrors.date = true;        
-      }  
+      } 
+      
+      if (classModal.cancelled && classModal.cancelemail === "") {
+        allErrors.email = true;
+      }
     }
 
     const onClassSubmit = async event => {
@@ -227,7 +240,7 @@ function AdminHome() {
       //if there are no errors, reset everything and save data
       if (Object.keys(allErrors).length === 0) {
         setValidated(true);
-        setClassModal({...classModal, modalVisible: false, reload: false, errors: {}});    
+        setClassModal({...classModal, modalVisible: false, reload: false, errors: {}, showAttendees: false});    
         if (classModal.id === "" || classModal.id === undefined) {
           APIaddClass();        
         }
@@ -236,9 +249,13 @@ function AdminHome() {
         }    
       }
       else{
-        setClassModal({...classModal, errors: allErrors})
+        setClassModal({...classModal, errors: allErrors})        
       }
     } 
+
+    const showAttendees = () => {      
+      setClassModal({...classModal, showAttendees: !classModal.showAttendees})
+    }
 
     return (    
         <main className="container">
@@ -310,7 +327,8 @@ function AdminHome() {
                 onClassSubmit={onClassSubmit}
                 onHide={hideModal}
                 changeHandler={changeHandler}
-                validated={validated}/>
+                validated={validated}
+                showAttendees={showAttendees}/>
                 
         </main>
     );
