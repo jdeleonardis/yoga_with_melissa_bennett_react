@@ -10,11 +10,13 @@
 //"pretty up" attendees
 //add in maximum attendees
 //put app in strict mode? Index.js
+//fix calendar fonts and colors
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import ClassModal from "../../components/ClassModal/ClassModal";
+import LocationCards from "../../components/LocationCards/LocationCards"
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./AdminHome.css";
@@ -44,6 +46,8 @@ function AdminHome() {
     });
 
     const [activeLocations, setActiveLocations] = useState([]);
+    
+    const [allLocations, setAllLocations] = useState([]);
 
     const [dateToLandOn, setDateToLandOn] = useState(new Date());
 
@@ -52,6 +56,7 @@ function AdminHome() {
     useEffect(() => {
         APIgetAllClasses();
         APIgetActiveLocations();
+        APIgetAllLocations();
     }, []);
     
     moment.locale("en");
@@ -62,7 +67,7 @@ function AdminHome() {
         document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-        window.location.reload();
+        pageReload();
     }  
 
     const APIgetAllClasses = () => {
@@ -100,7 +105,22 @@ function AdminHome() {
           setActiveLocations(res.data)    
         })
         .catch(err => console.log(err));
-    }       
+    }      
+    
+    const APIgetAllLocations = () => {        
+      API.getAllLocations()
+        .then(res => {
+          if (res.data.length === 0) {
+            throw new Error("No results found.");
+          }
+          if (res.data.status === "error") {
+            throw new Error(res.data.message);
+          } 
+          //console.log(res.data)
+          setAllLocations(res.data)    
+        })
+        .catch(err => console.log(err));
+    }   
 
     const APIaddClass = () => {        
       API.insertClass(classModal)
@@ -176,7 +196,7 @@ function AdminHome() {
     const hideModal = (reload) => {
       setClassModal({...classModal, modalVisible: false, reload: false, showAttendees: false});
         if (reload) {
-            window.location.reload();
+            pageReload();
         }        
     }; 
 
@@ -257,6 +277,14 @@ function AdminHome() {
       setClassModal({...classModal, showAttendees: !classModal.showAttendees})
     }
 
+    const addLocation = () => {      
+      alert("nothing yet")
+    }    
+
+    const pageReload = () => {
+      window.location.reload();
+    }
+
     return (    
         <main className="container">
             <div className="row py-3">
@@ -312,12 +340,22 @@ function AdminHome() {
             </div>
 
             <div className="row py-3">
-                <section className="col-lg-12">
+                <section className="col-lg-10">
                         <header>
                             <h1>Locations</h1>
                         </header>        
                 </section>
+                <section className="col-lg-2">
+                  <button 
+                    onClick={addLocation}     
+                    className="btn greenbtn logoutbtn">
+                    Add Location
+                  </button>       
+                </section>
             </div>
+            <LocationCards
+              locations={allLocations}
+            />
 
             <ClassModal 
                 data={classModal}

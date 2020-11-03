@@ -1,0 +1,27 @@
+.individualCardDiv {
+    width: 30%;
+}
+
+.cardDeck {
+    display: 'flex';
+    flex-direction: 'row';
+}
+
+.card {
+    flex: 1;
+    margin-bottom: 10px !important;
+}
+
+.cardEditBtn {
+    width: 100px;
+}
+
+#editButtonDiv {
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .individualCardDiv {
+        width: 90%;
+    }
+}

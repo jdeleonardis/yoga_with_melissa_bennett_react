@@ -9,7 +9,7 @@ const locationsSchema = new Schema({
   state: { type: String, required: true },
   zip: { type: String, required: true },
   zipLocal: { type: String },
-  active: { type: String, required: true, default: false }
+  active: { type: Boolean, required: true, default: false }
 });
 
 const Locations = mongoose.model("Locations", locationsSchema);
