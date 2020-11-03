@@ -38,6 +38,11 @@ export default {
         return axios.post("/api/classes", classData);
     },
 
+    //insert a new location
+    insertLocation: function(locationData) {
+        return axios.post("/api/locations", locationData);
+    },    
+
     //get all of the active locations
     getActiveLocations: function() {
         return axios.get("/api/locations/active");

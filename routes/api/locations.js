@@ -5,6 +5,7 @@ const locationsController = require("../../controllers/locationsController");
 router
     .route("/")    
     .get(locationsController.findAllLocations)
+    .post(locationsController.createLocation)    
 
 //   /api/locations/active
 router

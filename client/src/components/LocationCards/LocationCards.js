@@ -19,6 +19,7 @@ function LocationCards(props) {
                                 {location.addr1}
                                 <br></br>
                                 {location.city}, {location.state} {location.zip}
+                                <br></br>
                             </Card.Text>
                         </Card.Body>
                         <div id="editButtonDiv">
@@ -28,7 +29,7 @@ function LocationCards(props) {
                         
                         {!location.active ? 
                             <Card.Footer>                        
-                                <small className="text-muted">This location is inactive.</small>                            
+                                <small id="locationInactive">This location is inactive.</small>                            
                             </Card.Footer>
                         :null}
                     </Card>
