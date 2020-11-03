@@ -23,7 +23,11 @@ function LocationCards(props) {
                             </Card.Text>
                         </Card.Body>
                         <div id="editButtonDiv">
-                            <button className="btn greenbtn cardEditBtn">Edit</button>
+                            <button 
+                                className="btn greenbtn cardEditBtn"                                 
+                                onClick={() => props.editLocation(location)}>
+                                    Edit
+                            </button>
                         </div>
                         
                         

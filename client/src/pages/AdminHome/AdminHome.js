@@ -16,6 +16,7 @@ import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import ClassModal from "../../components/ClassModal/ClassModal";
+import LocationModal from "../../components/LocationModal/LocationModal";
 import LocationCards from "../../components/LocationCards/LocationCards"
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -44,6 +45,21 @@ function AdminHome() {
       attendeeEmailAddresses: [],
       errors: {}
     });
+
+    const [locationModal, setLocationModal] = useState({
+      id: "",
+      name: "",
+      addr1: "",
+      addr2: "",
+      city: "",
+      state: "",
+      zip: "",
+      active: false,
+      modalVisible: false,
+      reload: false,
+      modalTitle: "",
+      errors: {}
+    });    
 
     const [activeLocations, setActiveLocations] = useState([]);
     
@@ -158,6 +174,21 @@ function AdminHome() {
       .catch(err => console.log(err));
     }    
 
+    const APIaddLocation = () => {        
+      API.insertLocation(locationModal)
+      .then(res => {
+          if (res.data.status === "error") {
+              throw new Error(res.data.message);
+          }        
+          return res          
+      })
+      .then(res => {
+        APIgetAllLocations();
+        return res
+      })
+      .catch(err => console.log(err));
+    }        
+
     const selectSlot = (event) => {      
       setClassModal({modalTitle: "Create a Class",
         //dateStart: new Date(event.start), 
@@ -194,11 +225,18 @@ function AdminHome() {
     }    
   
     const hideModal = (reload) => {
-      setClassModal({...classModal, modalVisible: false, reload: false, showAttendees: false});
+      setClassModal({...classModal, modalVisible: false, reload: false, showAttendees: false, errors:{}});
         if (reload) {
             pageReload();
         }        
     }; 
+
+    const hideLocationModal = (reload) => {
+      setLocationModal({...locationModal, modalVisible: false, reload: false, errors:{}});
+        if (reload) {
+            pageReload();
+        }        
+    };     
 
     const changeHandler = (event) => {
       let valueChanged = event.target.name
@@ -249,12 +287,39 @@ function AdminHome() {
       }
     }
 
+    const validateLocation = () => {
+      setValidated(false);
+
+      if (locationModal.name === "" || locationModal.name === undefined) {
+        allErrors.name = true;        
+      }
+
+      if (locationModal.addr1 === "" || locationModal.addr1 === undefined) {
+        allErrors.addr1 = true;        
+      }
+      
+      if (locationModal.city === "" || locationModal.city === undefined) {
+        allErrors.city = true;        
+      }
+      
+      if (locationModal.state === "" || locationModal.state === undefined) {
+        allErrors.state = true;        
+      }     
+
+      var REGEX_PATTERN = "^[0-9][0-9][0-9][0-9][0-9]$"      
+      if (!locationModal.zip.match(REGEX_PATTERN))
+      {
+        allErrors.zip = true;        
+      }  
+
+    }    
+
     const onClassSubmit = async event => {
 
       event.preventDefault();
       event.stopPropagation();
       
-      //validate date in class modal
+      //validate the class modal
       validateClass();
 
       //if there are no errors, reset everything and save data
@@ -278,8 +343,67 @@ function AdminHome() {
     }
 
     const addLocation = () => {      
-      alert("nothing yet")
+      setLocationModal({modalVisible: true, 
+      modalTitle: "Add Location",
+      name:"",
+      addr1:"",
+      addr2:"",
+      city:"",
+      state:"",
+      zip:"",
+      active:true,
+      errors:{}})
     }    
+
+    const editLocation = (data) => {      
+      console.log(data)
+      // setLocationModal({modalVisible: true, 
+      // modalTitle: "Add Location",
+      // name:"",
+      // addr1:"",
+      // addr2:"",
+      // city:"",
+      // state:"",
+      // zip:"",
+      // active:true,
+      // errors:{}})
+    }        
+
+    const onLocationSubmit = async event => {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      // console.log(locationModal)
+      
+      //validate the location modal
+      validateLocation();
+
+      //if there are no errors, reset everything and save data
+      if (Object.keys(allErrors).length === 0) {
+        setValidated(true);
+        setLocationModal({...locationModal, modalVisible: false, reload: false, errors: {}});    
+        if (locationModal.id === "" || locationModal.id === undefined) {
+          APIaddLocation();        
+        }
+        else {
+          //APIupdateLocation();
+        }    
+      }
+      else{
+        setLocationModal({...locationModal, errors: allErrors})        
+      }
+    } 
+
+    const locationChangeHandler = (event) => {
+      let valueChanged = event.target.name
+      if (valueChanged === "active") {
+        setLocationModal({...locationModal, active: event.target.checked})
+      }
+      else {
+        setLocationModal({...locationModal, [valueChanged]: event.target.value})
+      }  
+    }             
 
     const pageReload = () => {
       window.location.reload();
@@ -355,6 +479,7 @@ function AdminHome() {
             </div>
             <LocationCards
               locations={allLocations}
+              editLocation = {editLocation}
             />
 
             <ClassModal 
@@ -367,6 +492,13 @@ function AdminHome() {
                 changeHandler={changeHandler}
                 validated={validated}
                 showAttendees={showAttendees}/>
+
+            <LocationModal 
+                data={locationModal}
+                onLocationSubmit={onLocationSubmit}
+                onHide={hideLocationModal}
+                locationChangeHandler={locationChangeHandler}
+                validated={validated}/>
                 
         </main>
     );

@@ -1,0 +1,11 @@
+.location-modal {
+    width: 50vw;    
+    max-width: 50vw;
+}
+
+@media screen and (max-width: 768px) {
+    .location-modal {
+        width: 100vw;    
+        max-width: 100vw;
+    }
+}
