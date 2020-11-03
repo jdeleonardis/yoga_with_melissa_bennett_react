@@ -1,6 +1,5 @@
 //todo: 
 //add dotenv
-//add location maintenance
 //set the event if clicking on a month or day
 //add sending email with cancellation
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
@@ -11,6 +10,8 @@
 //add in maximum attendees
 //put app in strict mode? Index.js
 //fix calendar fonts and colors
+//add active class locations to other pages
+//other content
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
@@ -151,6 +152,10 @@ function AdminHome() {
         return res
       })
       .then(res => {
+        setValidated(false);
+        return res
+      })   
+      .then(res => {
         setDateToLandOn(classModal.dateStart)      
       })
       .catch(err => console.log(err));
@@ -169,6 +174,10 @@ function AdminHome() {
         return res
       })
       .then(res => {
+        setValidated(false);
+        return res
+      })         
+      .then(res => {
         setDateToLandOn(classModal.dateStart)      
       })
       .catch(err => console.log(err));
@@ -186,8 +195,39 @@ function AdminHome() {
         APIgetAllLocations();
         return res
       })
+      .then(res => {
+        APIgetActiveLocations();
+        return res
+      })    
+      .then(res => {
+        setValidated(false);
+        return res
+      })     
       .catch(err => console.log(err));
-    }        
+    }     
+    
+    const APIupdateLocation = () => {        
+      API.updateLocation(locationModal.id, locationModal)
+      .then(res => {
+          if (res.data.status === "error") {
+              throw new Error(res.data.message);
+          }        
+          return res          
+      })
+      .then(res => {
+        APIgetAllLocations();
+        return res
+      })
+      .then(res => {
+        APIgetActiveLocations();
+        return res
+      })      
+      .then(res => {
+        setValidated(false);
+        return res
+      })         
+      .catch(err => console.log(err));
+    } 
 
     const selectSlot = (event) => {      
       setClassModal({modalTitle: "Create a Class",
@@ -289,6 +329,7 @@ function AdminHome() {
 
     const validateLocation = () => {
       setValidated(false);
+      console.log(locationModal.state)
 
       if (locationModal.name === "" || locationModal.name === undefined) {
         allErrors.name = true;        
@@ -302,7 +343,7 @@ function AdminHome() {
         allErrors.city = true;        
       }
       
-      if (locationModal.state === "" || locationModal.state === undefined) {
+      if (locationModal.state === "Choose...") {
         allErrors.state = true;        
       }     
 
@@ -356,17 +397,18 @@ function AdminHome() {
     }    
 
     const editLocation = (data) => {      
-      console.log(data)
-      // setLocationModal({modalVisible: true, 
-      // modalTitle: "Add Location",
-      // name:"",
-      // addr1:"",
-      // addr2:"",
-      // city:"",
-      // state:"",
-      // zip:"",
-      // active:true,
-      // errors:{}})
+      //console.log(data)
+      setLocationModal({modalVisible: true, 
+      id: data._id,
+      modalTitle: "Edit Location",
+      name: data.name,
+      addr1: data.addr1,
+      addr2: data.addr2,
+      city: data.city,
+      state: data.state,
+      zip: data.zip,
+      active: data.active,
+      errors:{}})
     }        
 
     const onLocationSubmit = async event => {
@@ -387,7 +429,7 @@ function AdminHome() {
           APIaddLocation();        
         }
         else {
-          //APIupdateLocation();
+          APIupdateLocation();
         }    
       }
       else{

@@ -12,7 +12,7 @@ function LocationCards(props) {
         <CardDeck className="cardDeck">
             {props.locations.map((location,i) => (          
                 <div className="individualCardDiv" key={i}>                         
-                    <Card className="card">
+                    <Card border="secondary" className="card">
                         <Card.Body>
                             <Card.Title>{location.name}</Card.Title>                            
                             <Card.Text>

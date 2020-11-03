@@ -7,6 +7,11 @@ router
     .get(locationsController.findAllLocations)
     .post(locationsController.createLocation)    
 
+//   /api/locations/:id
+router
+    .route("/:id")
+    .put(locationsController.updateLocationByID);    
+
 //   /api/locations/active
 router
     .route("/active")

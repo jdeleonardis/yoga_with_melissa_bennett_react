@@ -41,7 +41,12 @@ export default {
     //insert a new location
     insertLocation: function(locationData) {
         return axios.post("/api/locations", locationData);
-    },    
+    },   
+    
+    //update a location
+    updateLocation: function(id, locationInfo) {        
+        return axios.put("/api/locations/" + id, locationInfo);
+    },
 
     //get all of the active locations
     getActiveLocations: function() {
