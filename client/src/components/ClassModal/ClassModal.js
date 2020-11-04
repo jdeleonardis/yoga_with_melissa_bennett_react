@@ -26,128 +26,149 @@ function ClassModal(props) {
 
   return (
     <>  
-        {/* when 'Attendees is clicked, exand the modal to show the attendees data */}
-        <Modal dialogClassName={`${props.data.showAttendees ? "class-modal-withAttendees" : "class-modal-regular"}`}
+        <Modal dialogClassName="class-modal-regular"
           show={props.data.modalVisible} 
           backdrop="static"
           keyboard={false}>
 
         <Modal.Body className="classesModalBody">
-          <Container fluid id="mainContainer">
+          <Container fluid id="mainContainer">          
             <Row>
               <Col>
                 <h4>{props.data.modalTitle}</h4>          
-                <Form noValidate validated={props.validated} id="class-form" onSubmit={props.onClassSubmit}>
-                  {/* <Form.Group controlId="formTitle" className="class-form-group"> */}
-                  <Form.Group className="class-form-group">
-                      <Form.Label htmlFor="title">Title</Form.Label>
+                <Form noValidate validated={props.validated} id="class-form" onSubmit={props.onClassSubmit}>                  
+                  <Form.Row>
+                    <Col>
+                      <Form.Group className="class-form-group">
+                          <Form.Label htmlFor="title">Title</Form.Label>
+                          <Form.Control 
+                            type="text" 
+                            id="title" 
+                            className="form-control" 
+                            isInvalid={props.data.errors.title} 
+                            required 
+                            value={props.data.title} 
+                            onChange={props.changeHandler} 
+                            name="title" 
+                            placeholder="Enter title"/>
+                          <Form.Control.Feedback type="invalid">
+                            Please enter a title
+                          </Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col xs={6}>
+                    {/* <Form.Group controlID="formStartDate" className="class-form-group"> */}
+                    <Form.Group className="class-form-group">
+                      <Form.Label htmlFor="dateStart">Start Date and Time:</Form.Label>
                       <Form.Control 
-                        type="text" 
-                        id="title" 
-                        className="form-control" 
-                        isInvalid={props.data.errors.title} 
-                        required 
-                        value={props.data.title} 
-                        onChange={props.changeHandler} 
-                        name="title" 
-                        placeholder="Enter title"/>
-                      <Form.Control.Feedback type="invalid">
-                        Please enter a title
-                      </Form.Control.Feedback>
-                  </Form.Group>
-                  {/* <Form.Group controlID="formStartDate" className="class-form-group"> */}
-                  <Form.Group className="class-form-group">
-                    <Form.Label htmlFor="dateStart">Start Date and Time:</Form.Label>
-                    <Form.Control 
-                        type="datetime-local" 
-                        id="dateStart" 
-                        name="dateStart" 
-                        className="form-control" 
-                        isInvalid={props.data.errors.date} 
-                        required 
+                          type="datetime-local" 
+                          id="dateStart" 
+                          name="dateStart" 
+                          className="form-control" 
+                          isInvalid={props.data.errors.date} 
+                          required 
+                          onChange={props.onStartChange}
+                          value={props.data.dateStart} />
+                      {/* <DateTimePicker
+                        id="dateStart"
+                        name="dateStart"    
+                        className="form-control"               
+                        required
+                        amPmAriaLabel="Select AM/PM"
+                        calendarAriaLabel="Toggle calendar"
+                        dayAriaLabel="Day"
+                        hourAriaLabel="Hour"
+                        maxDetail="minute"
+                        minuteAriaLabel="Minute"
+                        monthAriaLabel="Month"
+                        nativeInputAriaLabel="Date and time"
+                        yearAriaLabel="Year"
+                        format="MM/dd/yyyy hh:mm a"
+                        clearIcon={null}
+                        disableClock={true}
+                        locale="en-US"
                         onChange={props.onStartChange}
-                        value={props.data.dateStart} />
-                    {/* <DateTimePicker
-                      id="dateStart"
-                      name="dateStart"    
-                      className="form-control"               
-                      required
-                      amPmAriaLabel="Select AM/PM"
-                      calendarAriaLabel="Toggle calendar"
-                      dayAriaLabel="Day"
-                      hourAriaLabel="Hour"
-                      maxDetail="minute"
-                      minuteAriaLabel="Minute"
-                      monthAriaLabel="Month"
-                      nativeInputAriaLabel="Date and time"
-                      yearAriaLabel="Year"
-                      format="MM/dd/yyyy hh:mm a"
-                      clearIcon={null}
-                      disableClock={true}
-                      locale="en-US"
-                      onChange={props.onStartChange}
-                      value={new Date(props.data.dateStart)}                    
-                    />                  */}
-                  </Form.Group>
-                  {/* <Form.Group controlID="formEndDate" className="class-form-group"> */}
-                  <Form.Group className="class-form-group">
-                    <Form.Label htmlFor="dateEnd">End Date and Time:</Form.Label>
-                    {/* <DateTimePicker
-                      id="dateEnd"
-                      name="dateEnd"    
-                      className="form-control"               
-                      required
-                      amPmAriaLabel="Select AM/PM"
-                      calendarAriaLabel="Toggle calendar"
-                      dayAriaLabel="Day"
-                      hourAriaLabel="Hour"
-                      maxDetail="minute"
-                      minuteAriaLabel="Minute"
-                      monthAriaLabel="Month"
-                      nativeInputAriaLabel="Date and time"
-                      yearAriaLabel="Year"
-                      format="MM/dd/yyyy hh:mm a"
-                      clearIcon={null}
-                      disableClock={true}
-                      locale="en-US"
-                      onChange={props.onEndChange}
-                      value={new Date(props.data.dateEnd)} 
-                      isInvalid={props.data.errors.date}                                    
-                    />                  */}
-                    <Form.Control 
-                        type="datetime-local" 
+                        value={new Date(props.data.dateStart)}                    
+                      />                  */}
+                    </Form.Group>
+                    </Col>
+                    <Col xs={6}>
+                    {/* <Form.Group controlID="formEndDate" className="class-form-group"> */}
+                    <Form.Group className="class-form-group">
+                      <Form.Label htmlFor="dateEnd">End Date and Time:</Form.Label>
+                      {/* <DateTimePicker
                         id="dateEnd"
-                        name="dateStart" 
-                        className="form-control" 
-                        isInvalid={props.data.errors.date} 
-                        required 
+                        name="dateEnd"    
+                        className="form-control"               
+                        required
+                        amPmAriaLabel="Select AM/PM"
+                        calendarAriaLabel="Toggle calendar"
+                        dayAriaLabel="Day"
+                        hourAriaLabel="Hour"
+                        maxDetail="minute"
+                        minuteAriaLabel="Minute"
+                        monthAriaLabel="Month"
+                        nativeInputAriaLabel="Date and time"
+                        yearAriaLabel="Year"
+                        format="MM/dd/yyyy hh:mm a"
+                        clearIcon={null}
+                        disableClock={true}
+                        locale="en-US"
                         onChange={props.onEndChange}
-                        value={props.data.dateEnd} />
-                    <Form.Control.Feedback type="invalid">
-                      Please enter a start date before the end date.
-                    </Form.Control.Feedback>
-                  </Form.Group>                
-
-                  {/* <Form.Group controlID="formLocation" className="class-form-group"> */}
-                  <Form.Group className="class-form-group">
-                      <Form.Label htmlFor="locationName">Location:</Form.Label>
+                        value={new Date(props.data.dateEnd)} 
+                        isInvalid={props.data.errors.date}                                    
+                      />                  */}
                       <Form.Control 
-                        as="select"                  
-                        className="form-control"
-                        id="locationName" 
-                        name="locationName" 
-                        isInvalid={props.data.errors.location} 
-                        // defaultValue="none"
-                        value={props.data.locationName}
-                        onChange={props.changeHandler}                  
-                        required>
-
-                        {locations}
-                      </Form.Control>
+                          type="datetime-local" 
+                          id="dateEnd"
+                          name="dateEnd" 
+                          className="form-control" 
+                          isInvalid={props.data.errors.date} 
+                          required 
+                          onChange={props.onEndChange}
+                          value={props.data.dateEnd} />
                       <Form.Control.Feedback type="invalid">
-                        Please select a location.
+                        Please enter a start date before the end date.
                       </Form.Control.Feedback>
-                  </Form.Group>                                
+                    </Form.Group>                    
+                    </Col>
+                  </Form.Row>                
+                  <Form.Row>
+                    {/* <Form.Group controlID="formLocation" className="class-form-group"> */}
+                    <Form.Group as={Col} className="class-form-group">
+                        <Form.Label htmlFor="locationName">Location:</Form.Label>
+                        <Form.Control 
+                          as="select"                  
+                          className="form-control"
+                          id="locationName" 
+                          name="locationName" 
+                          isInvalid={props.data.errors.location} 
+                          // defaultValue="none"
+                          value={props.data.locationName}
+                          onChange={props.changeHandler}                  
+                          required>
+
+                          {locations}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          Please select a location.
+                        </Form.Control.Feedback>
+                    </Form.Group>   
+
+                    <Form.Group as={Col} className="class-form-group">
+                        <Form.Label htmlFor="maxParticipants">Max Participants:</Form.Label>
+                        <Form.Control 
+                          type="number"                  
+                          className="form-control"
+                          id="maxParticipants" 
+                          name="maxParticipants" 
+                          value={props.data.maxParticipants}
+                          onChange={props.changeHandler}/>
+                    </Form.Group>                     
+                  </Form.Row>
+
                   {/* <Form.Group controlID="formCancelled" className="class-form-group-cancelled"> */}
                   <Form.Group className="class-form-group-cancelled">
                       <Form.Check type="checkbox" inline label="Cancelled?" id="cancelled" checked={props.data.cancelled} value={props.data.cancelled} onChange={props.changeHandler} name="cancelled"/>
@@ -192,8 +213,14 @@ function ClassModal(props) {
 
                 </Form>
               </Col>
+
+            </Row>
+            <Row>
               {/* when 'Attendees is clicked, show the attendees data */}
-              <Col sm={6} className={`${props.data.showAttendees ? "" : "invisible"}`}>
+              <Col className={`${props.data.showAttendees ? "" : "invisible"}`}>
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a fringilla risus. Integer at dolor neque. Donec aliquam neque eu felis vehicula, quis volutpat neque malesuada. Nam et dolor hendrerit, luctus nisl ac, dapibus nulla. Quisque porta, purus eu auctor posuere, eros dolor eleifend nibh, et lacinia leo ante quis est. Integer vitae libero ut sapien suscipit malesuada. Suspendisse potenti. Praesent sodales dapibus ante a pellentesque. Vestibulum consectetur pellentesque ante, tempus ullamcorper dui consectetur sit amet. Maecenas nec tellus lorem. Nullam porttitor mauris purus, at mollis velit scelerisque tempus. Pellentesque auctor accumsan nulla, eget volutpat urna eleifend a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed semper rhoncus magna a scelerisque. Aliquam venenatis urna nec vulputate fermentum.
+                </p>
                 <div>
                   {props.data.attendeeNames.map((attendee,i) => ( 
                     <p>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>

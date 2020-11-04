@@ -5,13 +5,13 @@
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //  --https://www.emailjs.com/docs/sdk/send/
 //change colors on calendar - normal, cancelled
-//figure out how to add first user securely
-//"pretty up" attendees
-//add in maximum attendees
-//put app in strict mode? Index.js
 //fix calendar fonts and colors
+//figure out how to add first user securely
+//"pretty up" attendees on class modal
+//add in maximum attendees on classes page. Do not allow checkbox, add other stuff
+//put app in strict mode? Index.js
 //add active class locations to other pages
-//other content
+//other content from M
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
@@ -41,6 +41,7 @@ function AdminHome() {
       modalVisible: false,
       reload: false,
       modalTitle: "",
+      maxParticipants: null,
       showAttendees: false,
       attendeeNames: [],
       attendeeEmailAddresses: [],
@@ -229,16 +230,15 @@ function AdminHome() {
       .catch(err => console.log(err));
     } 
 
-    const selectSlot = (event) => {      
+    const selectSlot = (event) => {     
       setClassModal({modalTitle: "Create a Class",
-        //dateStart: new Date(event.start), 
-        dateStart: moment(event.start).format("YYYY-MM-DDThh:mm"),
-        //dateEnd: new Date(event.end), 
-        dateEnd: moment(event.end).format("YYYY-MM-DDThh:mm"),
+        dateStart: moment(event.start).format().slice(0,19),
+        dateEnd: moment(event.end).format().slice(0,19),
         location: "",
         attendeeNames: [],
         attendeeEmailAddresses: [],
         modalVisible: true, 
+        maxParticipants: null, 
         reload: false,
         errors: {}
       });
@@ -250,13 +250,14 @@ function AdminHome() {
         id: event._id, 
         title: event.title, 
         //dateStart: new Date(event.dateStart), 
-        dateStart: moment(event.dateStart).format("YYYY-MM-DDThh:mm"),
+        dateStart: moment(event.dateStart).format().slice(0,19),
         //dateEnd: new Date(event.dateEnd), 
-        dateEnd: moment(event.dateEnd).format("YYYY-MM-DDThh:mm"),        
+        dateEnd: moment(event.dateEnd).format().slice(0,19),       
         location: event.location[0]._id, 
         locationName: event.location[0].name, 
         attendeeNames: event.names,
         attendeeEmailAddresses: event.emailAddresses,
+        maxParticipants: event.maxParticipants,
         cancelled: event.cancelled, 
         modalVisible: true, 
         reload: false,
@@ -283,6 +284,7 @@ function AdminHome() {
       switch(valueChanged) {
         case "title":
         case "cancelemail":
+        case "maxParticipants":
           setClassModal({...classModal, [valueChanged]: event.target.value})
           break;
         case "locationName":          

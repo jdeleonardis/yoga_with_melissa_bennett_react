@@ -11,7 +11,8 @@ const classesSchema = new Schema({
           ref: "Locations"
         }
   ],
-  maxParticipants: { type: Number},
+  maxParticipants: { type: Number},  
+  currentParticipants: {type: Number},
   names: { type: Array },
   emailAddresses: { type: Array},
   cancelled: { type: Boolean, required: true, default: false}

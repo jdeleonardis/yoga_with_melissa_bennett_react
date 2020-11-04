@@ -41,6 +41,11 @@ router
     .route("/update/:id")
     .put(classesController.updateClassByID);
 
+//   /api/classes/participants/:id
+router
+    .route("/participants/:id")
+    .put(classesController.updateClassParticipantsByID);
+
 // // Matches with "/api/users/templates/:id"
 // router
 //     .route("/templates/:userid")  

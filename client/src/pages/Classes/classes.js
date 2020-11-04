@@ -71,6 +71,19 @@ function Classes() {
                             throw new Error(res.data.message);
                         }                    
                     })
+                    .then(res => {
+                        if (classData.maxParticipants > 0) {
+                            let currentParticipants = classData.emailAddresses.length + 1
+                            API.updateClassParticipants(classData._id, {currentParticipants: currentParticipants})
+                            .then(res => {
+                                if (res.data.status === "error") {
+                                    throw new Error(res.data.message);
+                                }                    
+                            })
+                            .catch(err => console.log(err));                
+                        }
+                        
+                    })
                     .catch(err => console.log(err));                
                 }
             })
@@ -91,7 +104,7 @@ function Classes() {
             showModal("Please select a class.",false)
         }
         else{
-            processClassAttendancePromise().then(showModal("Class registration saved.",true)); 
+            processClassAttendancePromise().then(showModal("Class registration saved.",true));  
         }        
     }
 

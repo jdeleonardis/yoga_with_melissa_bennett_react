@@ -33,6 +33,11 @@ export default {
         return axios.put("/api/classes/" + id, contactInfo);
     },
 
+    //update number of participants
+    updateClassParticipants: function(id, participants) {        
+        return axios.put("/api/classes/participants/" + id, participants);
+    },
+
     //insert a new class
     insertClass: function(classData) {
         return axios.post("/api/classes", classData);
