@@ -8,10 +8,10 @@
 //fix calendar fonts and colors
 //figure out how to add first user securely
 //"pretty up" attendees on class modal
-//add in maximum attendees on classes page. Do not allow checkbox, add other stuff
 //put app in strict mode? Index.js
 //add active class locations to other pages
 //other content from M
+//maybe add a button to the home page to send users straight ot warriors at ease
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
