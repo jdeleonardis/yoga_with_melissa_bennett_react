@@ -223,7 +223,7 @@ function ClassModal(props) {
                 </p>
                 <div>
                   {props.data.attendeeNames.map((attendee,i) => ( 
-                    <p>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>
+                    <p key={i}>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>
                   ))}                  
                 </div>            
               </Col>

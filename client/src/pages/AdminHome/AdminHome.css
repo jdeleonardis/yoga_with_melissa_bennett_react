@@ -13,35 +13,31 @@
 .rbc-slot-selection {
     z-index: 10;
     position: absolute;
-    background-color: green;
-    color: orange;
+    background-color: #647474;
+    color: #d8d8c8;
     font-size: 80%;
     width: 100%;
     padding: 3px;
     text-align: left;
-    font-style: italic;
-    font-family: fantasy;
   }
   
   .rbc-slot-selecting {
     cursor: move;
   }
-
+/* 
   .rbc-event {
     border: none;
     box-sizing: border-box;
     box-shadow: none;
     margin: 0;
     padding: 2px 5px;
-    background: #456942 !important;
+    background: #647474 !important;
     border-radius: 5px;
-    color: purple;
+    color: #d8d8c8;
     cursor: pointer;
     width: 100%;
     text-align: left;
-    font-style: italic;
-    font-family: fantasy;
-  }
+  } */
 
   .rbc-event-label {
        font-size: 80%;       

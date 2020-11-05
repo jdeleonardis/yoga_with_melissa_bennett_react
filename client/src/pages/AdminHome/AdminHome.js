@@ -1,11 +1,8 @@
 //todo: 
 //add dotenv
-//set the event if clicking on a month or day
 //add sending email with cancellation
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //  --https://www.emailjs.com/docs/sdk/send/
-//change colors on calendar - normal, cancelled
-//fix calendar fonts and colors
 //figure out how to add first user securely
 //"pretty up" attendees on class modal
 //put app in strict mode? Index.js
@@ -453,6 +450,33 @@ function AdminHome() {
       window.location.reload();
     }
 
+    const eventStyleGetter = (event) => {;
+      let backgroundColor
+      if (event.cancelled) {
+        backgroundColor = 'red';
+      }
+      else {
+        backgroundColor = '#647474';
+      }  
+
+      var style = {
+          backgroundColor: backgroundColor,
+          border: 'none',
+          boxSizing: 'border-box',
+          boxShadow: 'none',
+          margin: 0,
+          padding: '2px 5px',
+          borderRadius: '5px',
+          color: '#d8d8c8',
+          cursor: 'pointer',
+          width: '100%',
+          textAlign: 'left'
+      };
+      return {
+          style: style
+      };
+    }
+
     return (    
         <main className="container">
             <div className="row py-3">
@@ -502,7 +526,8 @@ function AdminHome() {
                         )
                       }
                     onSelectEvent={selectEvent}
-                    onSelectSlot={selectSlot}  
+                    onSelectSlot={selectSlot}
+                    eventPropGetter={eventStyleGetter}  
                     selectable={true}
                 />
             </div>
