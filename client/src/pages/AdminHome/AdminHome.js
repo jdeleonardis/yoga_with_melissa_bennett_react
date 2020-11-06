@@ -16,6 +16,7 @@ import ClassModal from "../../components/ClassModal/ClassModal";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import LocationCards from "../../components/LocationCards/LocationCards"
 import moment from "moment";
+import emailjs from 'emailjs-com';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./AdminHome.css";
 
@@ -158,6 +159,7 @@ function AdminHome() {
       .catch(err => console.log(err));
     }     
 
+    //update the class, send a cancellation email if necessary, reretrieve info.
     const APIupdateClass = () => {        
       API.updateClassInfo(classModal.id, classModal)
       .then(res => {
@@ -165,6 +167,56 @@ function AdminHome() {
               throw new Error(res.data.message);
           }        
           return res          
+      })
+      .then(res => {
+        if (classModal.cancelled) {
+
+          // console.log(classModal.cancelemail)
+          // console.log(classModal.attendeeEmailAddresses)
+
+          //if there is at least one attendee signed up for a class, send an email.
+          if (classModal.attendeeEmailAddresses.length > 0) {
+            //format all of the email addresses into one string with ";" suitable to be sent to emailjs
+            let emailAddresses = ""
+            let i=0
+
+            for (i=0; i<classModal.attendeeEmailAddresses.length;i++) {
+              emailAddresses += classModal.attendeeEmailAddresses[i] + ";"
+            }
+
+            //format the text with <br/> for new lines so it is displayed correctly when sent.
+            let message = ""
+            let lines = classModal.cancelemail.split('\n')
+
+            for (i=0; i<lines.length; i++) {
+              if (i === lines.length-1){
+                message += lines[i]
+              }
+              else {
+                message += lines[i] + "<br/>"
+              }              
+            } 
+            
+            //extra check, probably overkill, to make sure everything is ready to go before sending the email
+            if (message !== "") {
+              
+              let emailInfo = {
+                message: message,
+                to_name: emailAddresses,
+                date: moment(classModal.dateStart).format("MMMM Do, YYYY"),
+                time: moment(classModal.dateStart).format("HH:mm A")
+              }
+              emailjs.send('gmail', 'template_p7oukag', emailInfo, 'user_GT9KfgNxRsk5DWBzg400j')
+              .then((result) => {
+                console.log("success");
+              }, (error) => {
+                  console.log(error.text);                
+                  alert(`The cancellation email has has encountered an error with message ${error.text}`);
+              });
+            }
+          }
+        }        
+        return res          
       })
       .then(res => {
         APIgetAllClasses();

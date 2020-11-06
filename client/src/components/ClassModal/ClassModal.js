@@ -222,7 +222,6 @@ function ClassModal(props) {
                 <h4>Class Attendees</h4>
                 <div>
                   {props.data.attendeeNames.map((attendee,i) => ( 
-                    //<p key={i}>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>
                     <p key={i}>
                       <b>{attendee}</b><br></br>
                       {props.data.attendeeEmailAddresses[i]}
