@@ -1,13 +1,9 @@
 //todo: 
 //add dotenv
-//add sending email with cancellation
-//  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
-//  --https://www.emailjs.com/docs/sdk/send/
 //figure out how to add first user securely
 //put app in strict mode? Index.js
 //add active class locations to other pages
 //other content from M
-//maybe add a button to the home page to send users straight ot warriors at ease
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
@@ -196,7 +192,7 @@ function AdminHome() {
                 message += lines[i] + "<br/>"
               }              
             } 
-            
+
             //extra check, probably overkill, to make sure everything is ready to go before sending the email
             if (message !== "") {
               

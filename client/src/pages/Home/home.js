@@ -46,11 +46,14 @@ function Home() {
             </div>    
             <div className="row greenbackground">
                 <section className="col-lg-9">
-                    <p>The mission of Warriors at Ease is to “increase awareness about the power of yoga and meditation and educate a network of professionals qualified to share evidence-based practices through programs that support the health and healing of service members, veterans, and their families.”  For more information about Warriors At Ease and other resources, click the Resources button.</p>
-                    <div id="btnwrapper" className="pb-3">
-                        <a href="/resources">
-                            <button type="button" className="btn beigebtn">Resources</button>
+                    <p>The mission of Warriors at Ease is to “increase awareness about the power of yoga and meditation and educate a network of professionals qualified to share evidence-based practices through programs that support the health and healing of service members, veterans, and their families.”  For more information about Warriors At Ease visit their website, or visit the Resources page.</p>
+                    <div id="btnwrapper" className="m-3">
+                        <a href="http://warriorsatease.org/" target="_blank">
+                            <button type="button" className="btn beigebtn m-2">Warriors At Ease</button>
                         </a>            
+                        <a href="/resources">
+                            <button type="button" className="btn beigebtn m-2">Resources</button>
+                        </a> 
                     </div>
                 </section>
 
@@ -77,10 +80,10 @@ function Home() {
                     </div>
                     <div id="btnwrapper" className="pb-3">
                         <a href="/aboutmelissa">
-                            <button type="button" className="btn greenbtn mr-5">About Melissa</button>
+                            <button type="button" className="btn greenbtn m-3">About Melissa</button>
                         </a>
                         <a href="/contact">
-                            <button type="button" className="btn greenbtn">Contact</button>
+                            <button type="button" className="btn greenbtn m-3">Contact</button>
                         </a>          
                     </div>
                 </section>     
