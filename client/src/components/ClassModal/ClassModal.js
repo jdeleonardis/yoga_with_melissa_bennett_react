@@ -218,12 +218,15 @@ function ClassModal(props) {
             <Row>
               {/* when 'Attendees is clicked, show the attendees data */}
               <Col className={`${props.data.showAttendees ? "" : "invisible"}`}>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a fringilla risus. Integer at dolor neque. Donec aliquam neque eu felis vehicula, quis volutpat neque malesuada. Nam et dolor hendrerit, luctus nisl ac, dapibus nulla. Quisque porta, purus eu auctor posuere, eros dolor eleifend nibh, et lacinia leo ante quis est. Integer vitae libero ut sapien suscipit malesuada. Suspendisse potenti. Praesent sodales dapibus ante a pellentesque. Vestibulum consectetur pellentesque ante, tempus ullamcorper dui consectetur sit amet. Maecenas nec tellus lorem. Nullam porttitor mauris purus, at mollis velit scelerisque tempus. Pellentesque auctor accumsan nulla, eget volutpat urna eleifend a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed semper rhoncus magna a scelerisque. Aliquam venenatis urna nec vulputate fermentum.
-                </p>
+                <hr></hr>
+                <h4>Class Attendees</h4>
                 <div>
                   {props.data.attendeeNames.map((attendee,i) => ( 
-                    <p key={i}>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>
+                    //<p key={i}>{attendee} + " " + {props.data.attendeeEmailAddresses[i]}</p>
+                    <p key={i}>
+                      <b>{attendee}</b><br></br>
+                      {props.data.attendeeEmailAddresses[i]}
+                    </p>
                   ))}                  
                 </div>            
               </Col>

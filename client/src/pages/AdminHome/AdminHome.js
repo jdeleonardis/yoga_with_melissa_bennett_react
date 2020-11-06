@@ -4,7 +4,6 @@
 //  --https://www.npmjs.com/package/emailjs for instructions on sending one email to mulitiple recipients
 //  --https://www.emailjs.com/docs/sdk/send/
 //figure out how to add first user securely
-//"pretty up" attendees on class modal
 //put app in strict mode? Index.js
 //add active class locations to other pages
 //other content from M
