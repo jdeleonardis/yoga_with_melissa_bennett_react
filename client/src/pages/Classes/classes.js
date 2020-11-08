@@ -4,6 +4,7 @@ import ContactNameContext from "../../utils/ContactNameContext";
 import ContactEmailContext from "../../utils/ContactEmailContext";
 import ClassesComponent from "../../components/ClassesComponent/ClassesComponent.js";
 import SimpleModal from "../../components/SimpleModal/index.js";
+import ActiveLocations from "../../components/ActiveLocationCards/ActiveLocationCards"
 
 function Classes() {
     const [classData, setClassData] = useState([]);    
@@ -19,7 +20,9 @@ function Classes() {
         handleEmailChange: (e) => {
             setContactEmailInfo({...contactEmailInfo, email: e.target.value})
         }
-    })        
+    })   
+    
+    const [activeLocations, setActiveLocations] = useState([]);
 
     const [isOpen, setIsOpen] = useState({
         modalVisible: false,
@@ -29,7 +32,23 @@ function Classes() {
 
     useEffect(() => {
         APIGetNextClasses();
-    }, []);    
+        APIgetActiveLocations();
+    }, []);   
+    
+    const APIgetActiveLocations = () => {        
+        API.getActiveLocations()
+          .then(res => {
+            if (res.data.length === 0) {
+              throw new Error("No results found.");
+            }
+            if (res.data.status === "error") {
+              throw new Error(res.data.message);
+            } 
+            //console.log(res.data)
+            setActiveLocations(res.data)    
+          })
+          .catch(err => console.log(err));
+      } 
 
     const showModal = (message,reload) => {
         setIsOpen({modalVisible: true, modalText: message, reload: reload});
@@ -159,12 +178,16 @@ function Classes() {
 
                 <section className="col-lg-8">
                     <div>
-                        <p>Currently, classes are being held every Sunday, from 3:00PM until 4:15PM at American Legion Post 138 in Roxboro, NC:</p>
+                        {/* <p>Currently, classes are being held every Sunday, from 3:00PM until 4:15PM at American Legion Post 138 in Roxboro, NC:</p>
                         <div className="bold_text centered_text my-3 mt-3">
                             American Legion Post 138<br></br>
                             218 Chub Lake Street<br></br>
                             Roxboro, NC 27573
-                        </div>
+                        </div> */}
+                        <p>Classes are currently being held at the following location(s): </p>
+                        <ActiveLocations 
+                            data={activeLocations}
+                        />
                         <h4>What to expect</h4>
                         <p>Beatings.  Lots of beatings.</p>
                         <h4>What to wear</h4>  

@@ -1,0 +1,15 @@
+
+.individualCardDivList {
+    width: 30%;
+    text-align: center;
+}
+
+.cardDeckList {
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .individualCardDivList {
+        width: 98%;
+    }
+}
