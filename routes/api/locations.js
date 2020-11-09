@@ -4,13 +4,7 @@ const locationsController = require("../../controllers/locationsController");
 //   /api/locations
 router
     .route("/")    
-    .get(locationsController.findAllLocations)
-    .post(locationsController.createLocation)    
-
-//   /api/locations/:id
-router
-    .route("/:id")
-    .put(locationsController.updateLocationByID);    
+    .get(locationsController.findAllLocations);
 
 //   /api/locations/active
 router

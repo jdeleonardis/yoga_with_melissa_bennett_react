@@ -32,8 +32,17 @@ function Classes() {
 
     useEffect(() => {
         APIGetNextClasses();
-        APIgetActiveLocations();
+        APIgetActiveLocations()
+        //APIgetMapKey();
     }, []);   
+
+    // const APIgetMapKey = () => {        
+    //     API.getMapKey()
+    //       .then(res => {
+    //         console.log(res)  
+    //       })
+    //       .catch(err => console.log(err));
+    //   }     
     
     const APIgetActiveLocations = () => {        
         API.getActiveLocations()
