@@ -2,7 +2,6 @@
 //add dotenv
 //figure out how to add first user securely
 //put app in strict mode? Index.js
-//add active class locations to other pages
 //other content from M
 
 import React, { useState, useEffect } from "react";
