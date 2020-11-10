@@ -3,6 +3,7 @@
 //figure out how to add first user securely
 //put app in strict mode? Index.js
 //other content from M
+//clean up
 
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'

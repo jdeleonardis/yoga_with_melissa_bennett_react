@@ -4,6 +4,7 @@ import ActiveLocations from "../../components/ActiveLocationCards/ActiveLocation
 import "./Home.css"
 
 function Home() {
+
     const [activeLocations, setActiveLocations] = useState([]);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ function Home() {
             setActiveLocations(res.data)    
           })
           .catch(err => console.log(err));
-      } 
+      }    
 
     return (    
         <main className="container">

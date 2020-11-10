@@ -43,7 +43,7 @@ module.exports = {
             });
           }
         });
-    },
+    },   
 
     verifyToken: function(req,res) {
         res.send('Success');

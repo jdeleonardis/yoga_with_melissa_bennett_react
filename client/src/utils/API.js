@@ -2,20 +2,21 @@ import axios from "axios";
 
 export default {
 
-    /*send a contact email*/
-    // postEmail: function(emailData) {
-    //     return axios.post("http://localhost:3002/send", emailData);
-    // },
+    //get the key for retrieving a map
+    getMapKey: function() {
+        return axios.get("/api/keys/map");
+    },      
 
-    //get a list of 3 classes after today
-    // getMapKey: function() {
-    //     return axios.get("/api/keys/map");
-    // },    
+    //create a token that allows a user access to behind the scenes keys to sensitive info
+    createKeyToken: function(tokenData) {
+        return axios.post("/api/createkeytoken", tokenData);
+    }, 
 
     //get geocoding location
-    getGeoLocation: function(address) {        
+    getGeoLocation: function(address, mapKey) {    
         let addrString = address.location[0].name +" "+ address.location[0].addr1 +" "+ address.location[0].city +", "+ address.location[0].state +" "+ address.location[0].zip
-        addrString = addrString.replace(/\s/g, '%20')        
+        addrString = addrString.replace(/\s/g, '%20')           
+        return axios.get("http://api.positionstack.com/v1/forward?access_key=" + mapKey + "&query=" + addrString)
     },
 
     //get a list of 3 classes after today
