@@ -44,7 +44,7 @@ function Classes() {
         .then(res => console.log("token created"))
         .catch(err => console.log(err));
 
-      }     
+    }     
     
     const APIgetActiveLocations = () => {        
         API.getActiveLocations()

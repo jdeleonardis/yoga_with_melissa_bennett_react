@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const secret = 'mysecretsshhh';
-const keySecret = 'keysecretshhh';
+// const secret = process.env.LOGIN_TOKEN_SECRET;
+// const keySecret = process.env.KEY_TOKEN_SECRET;
 
 const withAuth = function(req, res, next) {
   //console.log(req.cookies.token)
@@ -10,7 +10,7 @@ const withAuth = function(req, res, next) {
   if (token === undefined) {
     res.status(401).send('Unauthorized: No token provided');
   } else {
-    jwt.verify(token, secret, function(err, decoded) {
+    jwt.verify(token, process.env.LOGIN_TOKEN_SECRET, function(err, decoded) {
       if (err) {        
         res.status(401).send('Unauthorized: Invalid token');
       } else {
@@ -28,7 +28,7 @@ const getKeyAuth = function(req, res, next) {
   if (token === undefined) {
     res.status(401).send('Unauthorized: No token provided');
   } else {
-    jwt.verify(token, keySecret, function(err, decoded) {
+    jwt.verify(token, process.env.KEY_TOKEN_SECRET, function(err, decoded) {
       if (err) {        
         res.status(401).send('Unauthorized: Invalid token');
       } else {

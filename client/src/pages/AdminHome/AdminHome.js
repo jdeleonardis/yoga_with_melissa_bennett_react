@@ -1,5 +1,4 @@
 //todo: 
-//add dotenv
 //figure out how to add first user securely
 //put app in strict mode? Index.js
 //other content from M
@@ -68,6 +67,7 @@ function AdminHome() {
         APIgetAllClasses();
         APIgetActiveLocations();
         APIgetAllLocations();
+        APIcreateKeyToken();
     }, []);
     
     moment.locale("en");
@@ -80,6 +80,15 @@ function AdminHome() {
         sessionStorage.removeItem('token');
         pageReload();
     }  
+
+    const APIcreateKeyToken = () => {    
+      const tokenPayload = {
+          keys: "keys"
+      }
+      API.createKeyToken(tokenPayload)
+      .then(res => console.log("token created"))
+      .catch(err => console.log(err));
+    }      
 
     const APIgetAllClasses = () => {
       API.getAllClasses()
@@ -200,15 +209,20 @@ function AdminHome() {
                 message: message,
                 to_name: emailAddresses,
                 date: moment(classModal.dateStart).format("MMMM Do, YYYY"),
-                time: moment(classModal.dateStart).format("HH:mm A")
+                time: moment(classModal.dateStart).format("h:mm A")
               }
-              emailjs.send('gmail', 'template_p7oukag', emailInfo, 'user_GT9KfgNxRsk5DWBzg400j')
-              .then((result) => {
-                console.log("success");
-              }, (error) => {
-                  console.log(error.text);                
-                  alert(`The cancellation email has has encountered an error with message ${error.text}`);
-              });
+
+              API.getEmailJSUser()
+              .then(res => {
+                emailjs.send('gmail', 'template_p7oukag', emailInfo, res.data)
+                .then((result) => {
+                  console.log("success");
+                }, (error) => {
+                    console.log(error.text);                
+                    alert(`The cancellation email has has encountered an error with message ${error.text}`);
+                });
+              })
+
             }
           }
         }        

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from 'emailjs-com';
+import API from "../../utils/API";
 import SimpleModal from "../../components/SimpleModal/index.js";
 
 function Contacts() {    
@@ -15,14 +16,27 @@ function Contacts() {
         modalText: "",
         reload: false
       });  
+
+    useEffect(() => {
+        APIcreateKeyToken();
+    }, []); 
+
+    const APIcreateKeyToken = () => {    
+        const tokenPayload = {
+            keys: "keys"
+        }
+        API.createKeyToken(tokenPayload)
+        .then(res => console.log("token created"))
+        .catch(err => console.log(err));
+    }  
     
-      const showModal = (message, reload) => {
+    const showModal = (message, reload) => {
         setIsOpen({modalVisible: true, modalText: message, reload: reload});
-      };
+    };
     
-      const hideModal = (reload) => {
+    const hideModal = (reload) => {
         setIsOpen(false);
-      };        
+    };        
 
     const onNameChange = (event) => {
         setEmailInfo({...emailInfo, name: event.target.value})
@@ -38,16 +52,19 @@ function Contacts() {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        emailjs.sendForm('gmail', 'template_jo8svjd', event.target, 'user_GT9KfgNxRsk5DWBzg400j')
-        .then((result) => {
-            showModal("The contact form has been submitted.",false);
-            setEmailInfo({emailInfo, name: "", email: "", message: ""});
-        }, (error) => {
-            console.log(error.text);
-            showModal(`The contact form has encountered an error with message ${error.text}`);
-        });
+        event.persist();
         
+        API.getEmailJSUser()
+        .then(res => {
+            emailjs.sendForm('gmail', 'template_jo8svjd', event.target, res.data)
+            .then((res) => {
+                showModal("The contact form has been submitted.",false);
+                setEmailInfo({emailInfo, name: "", email: "", message: ""});
+            }, (error) => {
+                console.log(error.text);
+                showModal(`The contact form has encountered an error with message ${error.text}`);
+            })
+        })        
     }
     
 

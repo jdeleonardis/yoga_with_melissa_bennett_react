@@ -5,6 +5,11 @@ export default {
     //get the key for retrieving a map
     getMapKey: function() {
         return axios.get("/api/keys/map");
+    },  
+    
+    //get the emailjs userid
+    getEmailJSUser: function() {
+        return axios.get("/api/keys/emailjsuser");
     },      
 
     //create a token that allows a user access to behind the scenes keys to sensitive info

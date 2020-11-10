@@ -1,7 +1,7 @@
 const db = require("../models");
 const jwt = require('jsonwebtoken');
 
-const secret = 'mysecretsshhh';
+// const secret = process.env.LOGIN_TOKEN_SECRET;
 
 module.exports = {
     authenticateUser: function(req,res) {
@@ -33,7 +33,7 @@ module.exports = {
               } else {
                 // Issue token
                 const payload = { userid };
-                const token = jwt.sign(payload, secret, {
+                const token = jwt.sign(payload, process.env.LOGIN_TOKEN_SECRET, {
                   expiresIn: '1d'
                 });
              
