@@ -120,8 +120,8 @@ function AdminHome() {
 // console.log(new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" })))
 // console.log(new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" })))
 
-scheduledClasses[i].start = new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" }))
-scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" }))
+scheduledClasses[i].start = new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "UTC" }))
+scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "UTC" }))
 
           
    
