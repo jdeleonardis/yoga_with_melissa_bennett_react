@@ -70,7 +70,7 @@ function AdminHome() {
         APIcreateKeyToken();
     }, []);
     
-    moment.locale("en");
+    moment.locale("en-GB");
     const localizer = momentLocalizer(moment)   
     const today = new Date();
 
@@ -101,10 +101,16 @@ function AdminHome() {
           // console.log(scheduledClasses)
       
           for (let i = 0; i < scheduledClasses.length; i++) {
-              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              // scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-              scheduledClasses[i].start = scheduledClasses[i].dateStart.toDate()
-              scheduledClasses[i].end = scheduledClasses[i].dateEnd.toDate()  
+              console.log(scheduledClasses[i].dateStart)
+              console.log(scheduledClasses[i].dateEnd)
+              console.log(moment(scheduledClasses[i].dateStart).toDate())
+              console.log(moment(scheduledClasses[i].dateEnd).toDate())
+
+
+              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              // scheduledClasses[i].start = moment.(scheduledClasses[i].dateStart).toDate()
+              // scheduledClasses[i].end = moment.(scheduledClasses[i].dateEnd).toDate()  
               scheduledClasses[i].allDay = false
           }
           
