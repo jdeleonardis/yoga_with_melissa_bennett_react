@@ -115,12 +115,15 @@ function AdminHome() {
             // let endDt = new Date(scheduledClasses[i].dateEnd).toUTCString()
             // console.log(startDt)
             // console.log(endDt)
-              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-              // scheduledClasses[i].start = moment.utc(startDate).toDate()
-              // scheduledClasses[i].end = moment.utc(endDate).toDate()
-              // scheduledClasses[i].start = startDt
-              // scheduledClasses[i].end =endDt              
+              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+//              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+// console.log(new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" })))
+// console.log(new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" })))
+
+scheduledClasses[i].start = new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" }))
+scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" }))
+
+          
    
               scheduledClasses[i].allDay = false
           }
@@ -205,7 +208,7 @@ function AdminHome() {
           // dateStart: moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19),
           // dateEnd: moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19),
           dateStart: classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' }),
-          dateStart: classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' }),
+          dateEnd: classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' }),
           modalVisible: false
         })
         resolve(console.log("resolve"))
