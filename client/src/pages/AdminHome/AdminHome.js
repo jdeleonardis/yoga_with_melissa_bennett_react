@@ -166,7 +166,7 @@ function AdminHome() {
     const APIaddClass = () => {   
       console.log(classModal)
       console.log(moment.utc(classModal.dateStart).toDate())
-      console.log(moment.tz(classModal.dateStart, "Europe/London").toDate())
+      console.log(moment.tz(classModal.dateStart, "Europe/London"))
       API.insertClass(classModal)
       .then(res => {
           if (res.data.status === "error") {
