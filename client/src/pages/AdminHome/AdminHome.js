@@ -160,7 +160,8 @@ function AdminHome() {
         .catch(err => console.log(err));
     }   
 
-    const APIaddClass = () => {        
+    const APIaddClass = () => {   
+      console.log(classModal) 
       API.insertClass(classModal)
       .then(res => {
           if (res.data.status === "error") {
