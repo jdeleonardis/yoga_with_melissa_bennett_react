@@ -101,8 +101,10 @@ function AdminHome() {
           // console.log(scheduledClasses)
       
           for (let i = 0; i < scheduledClasses.length; i++) {
-              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              // scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              scheduledClasses[i].start = scheduledClasses[i].dateStart.toDate()
+              scheduledClasses[i].end = scheduledClasses[i].dateEnd.toDate()  
               scheduledClasses[i].allDay = false
           }
           
