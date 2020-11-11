@@ -175,7 +175,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
 
       return setDatesToLondon()
       .then(res => {
-        console.log("1")
         console.log(classModal)
         API.insertClass(classModal)
         .then(res => {
@@ -203,15 +202,14 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
 
     const setDatesToLondon = () => {
       return new Promise(resolve => {
-        console.log("2")
+        let startDate = new Date(classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
+        let endDate = new Date(classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
         setClassModal({...classModal, 
-          // dateStart: moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19),
-          // dateEnd: moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19),
-          dateStart: classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' }),
-          dateEnd: classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' }),
+          dateStart: startDate,
+          dateEnd: endDate,
           modalVisible: false
         })
-        resolve(console.log("resolve"))
+        resolve()
       })
     }
 
