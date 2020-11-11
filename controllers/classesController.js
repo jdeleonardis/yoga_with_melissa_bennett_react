@@ -27,6 +27,16 @@ module.exports = {
   },  
 
   createClass: function(req,res) {
+    console.log(req.body.dateStart)
+    console.log(req.body.dateEnd)
+    const start = new Date(req.body.dateStart.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
+    const end = new Date(req.body.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
+    console.log(start)
+    console.log(end)
+
+    req.body.dateStart = start
+    req.body.dateEnd = end
+
     db.Classes.create(req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
