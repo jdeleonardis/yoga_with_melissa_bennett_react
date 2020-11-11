@@ -164,29 +164,53 @@ function AdminHome() {
     }   
 
     const APIaddClass = () => {   
-      console.log(classModal)
-      console.log(moment.utc(classModal.dateStart).toDate())
-      console.log(moment.tz(classModal.dateStart, "Europe/London"))
-      API.insertClass(classModal)
+      // console.log(classModal)
+      // console.log(moment.utc(classModal.dateStart).toDate())
+      // console.log(moment.tz(classModal.dateStart, "Europe/London").toISOString())
+      // let dateStart = moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19)
+      // let dateEnd = moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19)
+
+      // console.log(dateStart + " " + dateEnd)
+
+      return setDatesToLondon()
       .then(res => {
-          if (res.data.status === "error") {
-              throw new Error(res.data.message);
-          }        
-          return res          
-      })
-      .then(res => {
-        APIgetAllClasses();
-        return res
-      })
-      .then(res => {
-        setValidated(false);
-        return res
-      })   
-      .then(res => {
-        setDateToLandOn(classModal.dateStart)      
-      })
-      .catch(err => console.log(err));
+        console.log("1")
+        console.log(classModal)
+        API.insertClass(classModal)
+        .then(res => {
+            if (res.data.status === "error") {
+                throw new Error(res.data.message);
+            }        
+            return res          
+        })
+        .then(res => {
+          APIgetAllClasses();
+          return res
+        })
+        .then(res => {
+          setValidated(false);
+          return res
+        })   
+        .then(res => {
+          setDateToLandOn(classModal.dateStart)      
+        })
+        .catch(err => console.log(err));      
+        }
+
+        )      
     }     
+
+    const setDatesToLondon = () => {
+      return new Promise(resolve => {
+        console.log("2")
+        setClassModal({...classModal, 
+          dateStart: moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19),
+          dateEnd: moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19),
+          modalVisible: false
+        })
+        resolve(console.log("resolve"))
+      })
+    }
 
     //update the class, send a cancellation email if necessary, reretrieve info.
     const APIupdateClass = () => {        
