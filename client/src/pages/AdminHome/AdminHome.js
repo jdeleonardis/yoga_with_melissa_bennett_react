@@ -75,6 +75,7 @@ function AdminHome() {
     
     moment.locale("en");
     const localizer = momentLocalizer(moment)   
+    //moment.tz.setDefault("America/New_York");
     const today = new Date();
 
     const logOut = () => {        
@@ -103,26 +104,17 @@ function AdminHome() {
           let scheduledClasses = res.data;
           // console.log(scheduledClasses)
       
-          for (let i = 0; i < scheduledClasses.length; i++) {
-              // console.log(scheduledClasses[i].dateStart)              
-              // console.log(scheduledClasses[i].dateEnd)
-              // console.log(moment(scheduledClasses[i].dateStart).format())
-              // console.log(moment(scheduledClasses[i].dateEnd).format())
-              // console.log(moment(scheduledClasses[i].dateStart).toDate())
-              // console.log(moment(scheduledClasses[i].dateEnd).toDate())
-              // console.log(moment.utc(scheduledClasses[i].dateStart).toDate())
-              // console.log(moment.utc(scheduledClasses[i].dateEnd).toDate())
-              // console.log(moment.utc(scheduledClasses[i].dateStart))
-              // console.log(moment.utc(scheduledClasses[i].dateEnd))
-              // console.log(moment(scheduledClasses[i].dateStart).format())
-              // console.log(moment(scheduledClasses[i].dateEnd).format())
+          for (let i = 0; i < scheduledClasses.length; i++) {              
 
-              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-              // scheduledClasses[i].start = moment(scheduledClasses[i].dateStart).toDate()
-              // scheduledClasses[i].end = moment(scheduledClasses[i].dateEnd).toDate()    
-              // scheduledClasses[i].start = moment(scheduledClasses[i].dateStart).format()
-              // scheduledClasses[i].end = moment(scheduledClasses[i].dateEnd).format()
+
+            console.log(moment(scheduledClasses[i].dateStart).toISOString().slice(0,19))
+            console.log(moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19))
+            let startDate = moment(scheduledClasses[i].dateStart).toISOString().slice(0,19)
+            let endDate = moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19)
+              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              // scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              scheduledClasses[i].start = moment.utc(startDate).toDate()
+              scheduledClasses[i].end = moment.utc(endDate).toDate()
    
               scheduledClasses[i].allDay = false
           }
