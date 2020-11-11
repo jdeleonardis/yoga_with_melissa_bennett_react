@@ -10,7 +10,10 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import ClassModal from "../../components/ClassModal/ClassModal";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import LocationCards from "../../components/LocationCards/LocationCards"
-import moment from "moment";
+//import moment from "moment";
+import moment from 'moment-timezone'
+//var moment = require('moment-timezone');
+
 import emailjs from 'emailjs-com';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./AdminHome.css";
@@ -161,7 +164,9 @@ function AdminHome() {
     }   
 
     const APIaddClass = () => {   
-      console.log(classModal) 
+      console.log(classModal)
+      console.log(moment.utc(classModal.dateStart).toDate())
+      console.log(moment.tz(classModal.dateStart, "Europe/London").toDate())
       API.insertClass(classModal)
       .then(res => {
           if (res.data.status === "error") {
