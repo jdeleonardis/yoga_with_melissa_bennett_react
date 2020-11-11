@@ -1,6 +1,5 @@
 import React from "react";
 import Moment from "moment";
-//import DateTimePicker from 'react-datetime-picker';
 import "./classModal.css";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -69,8 +68,9 @@ function ClassModal(props) {
                           className="form-control" 
                           isInvalid={props.data.errors.date} 
                           required 
-                          onChange={props.onStartChange}
-                          value={props.data.dateStart} />
+                          value={props.data.dateStart}                           
+                          onChange={props.onStartChange}/>                          
+                          
                       {/* <DateTimePicker
                         id="dateStart"
                         name="dateStart"    
@@ -127,8 +127,8 @@ function ClassModal(props) {
                           className="form-control" 
                           isInvalid={props.data.errors.date} 
                           required 
-                          onChange={props.onEndChange}
-                          value={props.data.dateEnd} />
+                          value={props.data.dateEnd}                           
+                          onChange={props.onEndChange}/>
                       <Form.Control.Feedback type="invalid">
                         Please enter a start date before the end date.
                       </Form.Control.Feedback>

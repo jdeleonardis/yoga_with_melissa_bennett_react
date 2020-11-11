@@ -101,19 +101,25 @@ function AdminHome() {
           // console.log(scheduledClasses)
       
           for (let i = 0; i < scheduledClasses.length; i++) {
-              console.log(scheduledClasses[i].dateStart)
-              console.log(scheduledClasses[i].dateEnd)
-              console.log(moment(scheduledClasses[i].dateStart).toDate())
-              console.log(moment(scheduledClasses[i].dateEnd).toDate())
-              console.log(moment.utc(scheduledClasses[i].dateStart).toDate())
-              console.log(moment.utc(scheduledClasses[i].dateEnd).toDate())
-              console.log(moment(scheduledClasses[i].dateStart).format())
-              console.log(moment(scheduledClasses[i].dateEnd).format())
+              // console.log(scheduledClasses[i].dateStart)              
+              // console.log(scheduledClasses[i].dateEnd)
+              // console.log(moment(scheduledClasses[i].dateStart).format())
+              // console.log(moment(scheduledClasses[i].dateEnd).format())
+              // console.log(moment(scheduledClasses[i].dateStart).toDate())
+              // console.log(moment(scheduledClasses[i].dateEnd).toDate())
+              // console.log(moment.utc(scheduledClasses[i].dateStart).toDate())
+              // console.log(moment.utc(scheduledClasses[i].dateEnd).toDate())
+              // console.log(moment.utc(scheduledClasses[i].dateStart))
+              // console.log(moment.utc(scheduledClasses[i].dateEnd))
+              // console.log(moment(scheduledClasses[i].dateStart).format())
+              // console.log(moment(scheduledClasses[i].dateEnd).format())
 
-              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              // scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-              scheduledClasses[i].start = moment(scheduledClasses[i].dateStart).toDate()
-              scheduledClasses[i].end = moment(scheduledClasses[i].dateEnd).toDate()                
+              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              // scheduledClasses[i].start = moment(scheduledClasses[i].dateStart).toDate()
+              // scheduledClasses[i].end = moment(scheduledClasses[i].dateEnd).toDate()    
+              // scheduledClasses[i].start = moment(scheduledClasses[i].dateStart).format()
+              // scheduledClasses[i].end = moment(scheduledClasses[i].dateEnd).format()
    
               scheduledClasses[i].allDay = false
           }
