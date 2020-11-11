@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "dependencies": {    
+  "dependencies": {
     "if-env": "^1.0.4",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
