@@ -82,7 +82,7 @@ function AdminHome() {
         document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-        pageReload();
+        pageReload();        
     }  
 
     const APIcreateKeyToken = () => {    
@@ -165,17 +165,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
     }   
 
     const APIaddClass = () => {   
-      // console.log(classModal)
-      // console.log(moment.utc(classModal.dateStart).toDate())
-      // console.log(moment.tz(classModal.dateStart, "Europe/London").toISOString())
-      // let dateStart = moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19)
-      // let dateEnd = moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19)
-
-      // console.log(dateStart + " " + dateEnd)
-
-      return setDatesToLondon()
-      .then(res => {
-        console.log(classModal)
         API.insertClass(classModal)
         .then(res => {
             if (res.data.status === "error") {
@@ -194,24 +183,19 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
         .then(res => {
           setDateToLandOn(classModal.dateStart)      
         })
-        .catch(err => console.log(err));      
-        }
-
-        )      
+        .catch(err => console.log(err)); 
     }     
 
-    const setDatesToLondon = () => {
-      return new Promise(resolve => {
-        let startDate = new Date(classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
-        let endDate = new Date(classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
-        setClassModal({...classModal, 
-          dateStart: startDate,
-          dateEnd: endDate,
-          modalVisible: false
-        })
-        resolve()
-      })
-    }
+    // const setDatesToLondon = () => {
+
+    //   let startDate = new Date(classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
+    //   let endDate = new Date(classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
+    //   setClassModal({...classModal, 
+    //     dateStart: startDate,
+    //     dateEnd: endDate,
+    //     modalVisible: false
+    //   })
+    // }
 
     //update the class, send a cancellation email if necessary, reretrieve info.
     const APIupdateClass = () => {        
@@ -408,7 +392,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
     const onStartChange = (event) => {
       //console.log(event.target.value)
       setClassModal({...classModal, dateStart: event.target.value})
-      //setClassModal({...classModal, dateStart: new Date(event)})
     } 
 
     const onEndChange = (event) => {
