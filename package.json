@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "concurrently": "^4.1.0",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
