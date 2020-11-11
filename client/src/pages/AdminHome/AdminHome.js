@@ -107,14 +107,20 @@ function AdminHome() {
           for (let i = 0; i < scheduledClasses.length; i++) {              
 
 
-            console.log(moment(scheduledClasses[i].dateStart).toISOString().slice(0,19))
-            console.log(moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19))
-            let startDate = moment(scheduledClasses[i].dateStart).toISOString().slice(0,19)
-            let endDate = moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19)
-              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-              // scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-              scheduledClasses[i].start = moment.utc(startDate).toDate()
-              scheduledClasses[i].end = moment.utc(endDate).toDate()
+            //console.log(moment(scheduledClasses[i].dateStart).toISOString().slice(0,19))
+            //console.log(moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19))
+            //let startDate = moment(scheduledClasses[i].dateStart).toISOString().slice(0,19)
+            //let endDate = moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19)
+            // let startDt = new Date(scheduledClasses[i].dateStart).toUTCString()
+            // let endDt = new Date(scheduledClasses[i].dateEnd).toUTCString()
+            // console.log(startDt)
+            // console.log(endDt)
+              scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
+              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
+              // scheduledClasses[i].start = moment.utc(startDate).toDate()
+              // scheduledClasses[i].end = moment.utc(endDate).toDate()
+              // scheduledClasses[i].start = startDt
+              // scheduledClasses[i].end =endDt              
    
               scheduledClasses[i].allDay = false
           }
@@ -196,8 +202,10 @@ function AdminHome() {
       return new Promise(resolve => {
         console.log("2")
         setClassModal({...classModal, 
-          dateStart: moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19),
-          dateEnd: moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19),
+          // dateStart: moment.tz(classModal.dateStart, "Europe/London").toISOString().slice(0,19),
+          // dateEnd: moment.tz(classModal.dateEnd, "Europe/London").toISOString().slice(0,19),
+          dateStart: classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' }),
+          dateStart: classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' }),
           modalVisible: false
         })
         resolve(console.log("resolve"))
