@@ -21,7 +21,7 @@ export default {
     getGeoLocation: function(address, mapKey) {    
         let addrString = address.location[0].name +" "+ address.location[0].addr1 +" "+ address.location[0].city +", "+ address.location[0].state +" "+ address.location[0].zip
         addrString = addrString.replace(/\s/g, '%20')           
-        return axios.get("http://api.positionstack.com/v1/forward?access_key=" + mapKey + "&query=" + addrString)
+        return axios.get("//api.positionstack.com/v1/forward?access_key=" + mapKey + "&query=" + addrString)
     },
 
     //get a list of 3 classes after today
