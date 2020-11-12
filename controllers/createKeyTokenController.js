@@ -1,9 +1,6 @@
 const db = require("../models");
 const jwt = require('jsonwebtoken');
 
-// const keySecret = process.env.KEY_TOKEN_SECRET;
-
-
 module.exports = {
     createKeyToken: function(req,res) {     
         const { keys } = req.body; 

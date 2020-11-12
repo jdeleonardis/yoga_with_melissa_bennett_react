@@ -3,9 +3,6 @@ import Col from "react-bootstrap/Col";
 import "./Address.css"
 
 function Address(props) {
-
-  //console.log(props.classInfo.location[0])
-
   return (
     <Col>
         <p>

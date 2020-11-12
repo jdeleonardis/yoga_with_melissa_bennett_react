@@ -1,10 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// const secret = process.env.LOGIN_TOKEN_SECRET;
-// const keySecret = process.env.KEY_TOKEN_SECRET;
-
 const withAuth = function(req, res, next) {
-  //console.log(req.cookies.token)
   const token = req.cookies.token;
   //if (!token) {
   if (token === undefined) {
@@ -14,9 +10,6 @@ const withAuth = function(req, res, next) {
       if (err) {        
         res.status(401).send('Unauthorized: Invalid token');
       } else {
-        //res.status(200).send('Success middleware');
-        // console.log(decoded.email)
-        // req.email = decoded.email;
         next();
       }
     });

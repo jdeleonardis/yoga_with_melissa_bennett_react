@@ -10,7 +10,6 @@ function SimpleModal(props) {
       <Modal show={props.show} onHide={props.onHide}>
         <Modal.Body>{props.body}</Modal.Body>
         <Modal.Footer>
-          {/* <button onClick={props.onHide} */}
           <button onClick={() => props.onHide(props.reload)}          
           className="btn greenbtn mb-3"
           >Close</button>   

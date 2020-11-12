@@ -1,8 +1,6 @@
 const db = require("../models");
 const jwt = require('jsonwebtoken');
 
-// const secret = process.env.LOGIN_TOKEN_SECRET;
-
 module.exports = {
     authenticateUser: function(req,res) {
         const { userid, password } = req.body;
@@ -47,6 +45,5 @@ module.exports = {
 
     verifyToken: function(req,res) {
         res.send('Success');
-        // res.status(200).send("New user created!");
     }    
 };

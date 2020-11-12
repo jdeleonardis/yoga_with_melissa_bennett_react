@@ -8,7 +8,6 @@ import "./ClassesComponent.css"
 
 function ClassesComponent(props) {  
 
-  // console.log(props)
   return (
     <section className="content-form">
       <h1>Registration</h1>

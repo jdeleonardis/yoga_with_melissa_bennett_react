@@ -9,11 +9,9 @@ import States from "../States/States"
 
 
 function LocationModal(props) {
-  //console.log(props.data)
     
   return (
     <>  
-        {/* when 'Attendees is clicked, exand the modal to show the attendees data */}
         <Modal dialogClassName="location-modal"
           show={props.data.modalVisible} 
           backdrop="static"

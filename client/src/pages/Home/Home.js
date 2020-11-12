@@ -20,7 +20,6 @@ function Home() {
             if (res.data.status === "error") {
               throw new Error(res.data.message);
             } 
-            //console.log(res.data)
             setActiveLocations(res.data)    
           })
           .catch(err => console.log(err));

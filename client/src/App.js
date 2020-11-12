@@ -6,8 +6,6 @@ import About from "./pages/About/About.js";
 import Contact from "./pages/Contact/Contact.js";
 import Login from "./pages/Login/Login.js"
 import AdminHome from "./pages/AdminHome/AdminHome.js"
-// import Detail from "./pages/Detail";
-// import NoMatch from "./pages/NoMatch";
 import "./App.css"
 import NavComponent from "./components/NavComponent/NavComponent.js";
 import Footer from "./components/Footer/Footer.js";
@@ -25,7 +23,6 @@ function App() {
             <Route exact path="/resources" component={Resources} />
             <Route exact path="/aboutmelissa" component={About} />          
             <Route exact path="/contact" component={Contact} />                    
-            {/* <Route exact path="/test" component={TestPage} />   */}
             <Route exact path="/login" component={Login} />                              
             <Route exact path="/adminhome" component={withAuth(AdminHome)} />
         </Switch>

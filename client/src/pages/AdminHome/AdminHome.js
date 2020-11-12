@@ -1,18 +1,11 @@
-//todo: 
-//figure out how to add first user securely
-//put app in strict mode? Index.js
-//other content from M
-//clean up
-
 import React, { useState, useEffect } from "react";
 import API from '../../utils/API'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import ClassModal from "../../components/ClassModal/ClassModal";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import LocationCards from "../../components/LocationCards/LocationCards"
-//import moment from "moment";
-import moment from 'moment-timezone'
-//var moment = require('moment-timezone');
+import moment from "moment";
+//import moment from 'moment-timezone'
 
 import emailjs from 'emailjs-com';
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -75,7 +68,6 @@ function AdminHome() {
     
     moment.locale("en");
     const localizer = momentLocalizer(moment)   
-    //moment.tz.setDefault("America/New_York");
     const today = new Date();
 
     const logOut = () => {        
@@ -106,32 +98,9 @@ function AdminHome() {
       
           for (let i = 0; i < scheduledClasses.length; i++) {              
 
-
-            //console.log(moment(scheduledClasses[i].dateStart).toISOString().slice(0,19))
-            //console.log(moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19))
-            //let startDate = moment(scheduledClasses[i].dateStart).toISOString().slice(0,19)
-            //let endDate = moment(scheduledClasses[i].dateEnd).toISOString().slice(0,19)
-            // let startDt = new Date(scheduledClasses[i].dateStart).toUTCString()
-            // let endDt = new Date(scheduledClasses[i].dateEnd).toUTCString()
-            // console.log(startDt)
-            // console.log(endDt)
-              // scheduledClasses[i].start = moment.utc(scheduledClasses[i].dateStart).toDate()
-//              scheduledClasses[i].end = moment.utc(scheduledClasses[i].dateEnd).toDate()  
-// console.log(new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" })))
-// console.log(new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" })))
-
-// console.log(new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "UTC" })))
-// console.log(new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "UTC" })))
-
-// console.log(new Date(scheduledClasses[i].dateStart))
-// console.log(new Date(scheduledClasses[i].dateEnd))
-
-scheduledClasses[i].start = new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" }))
-scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" }))
-
-          
-   
-              scheduledClasses[i].allDay = false
+            scheduledClasses[i].start = new Date(scheduledClasses[i].dateStart.toLocaleString("en-US", {timeZone: "America/New_York" }))
+            scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("en-US", {timeZone: "America/New_York" }))
+            scheduledClasses[i].allDay = false
           }
           
           setClassData(scheduledClasses);
@@ -149,7 +118,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
           if (res.data.status === "error") {
             throw new Error(res.data.message);
           } 
-          //console.log(res.data)
           setActiveLocations(res.data)    
         })
         .catch(err => console.log(err));
@@ -164,7 +132,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
           if (res.data.status === "error") {
             throw new Error(res.data.message);
           } 
-          //console.log(res.data)
           setAllLocations(res.data)    
         })
         .catch(err => console.log(err));
@@ -192,17 +159,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
         .catch(err => console.log(err)); 
     }     
 
-    // const setDatesToLondon = () => {
-
-    //   let startDate = new Date(classModal.dateStart.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
-    //   let endDate = new Date(classModal.dateEnd.toLocaleString("en-US", {timeZone: 'UTC' })).toISOString().slice(0,19)
-    //   setClassModal({...classModal, 
-    //     dateStart: startDate,
-    //     dateEnd: endDate,
-    //     modalVisible: false
-    //   })
-    // }
-
     //update the class, send a cancellation email if necessary, reretrieve info.
     const APIupdateClass = () => {        
       API.updateClassInfo(classModal.id, classModal)
@@ -214,10 +170,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
       })
       .then(res => {
         if (classModal.cancelled) {
-
-          // console.log(classModal.cancelemail)
-          // console.log(classModal.attendeeEmailAddresses)
-
           //if there is at least one attendee signed up for a class, send an email.
           if (classModal.attendeeEmailAddresses.length > 0) {
             //format all of the email addresses into one string with ";" suitable to be sent to emailjs
@@ -346,9 +298,7 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
         modalTitle: "Update a Class",
         id: event._id, 
         title: event.title, 
-        //dateStart: new Date(event.dateStart), 
         dateStart: moment(event.dateStart).format().slice(0,19),
-        //dateEnd: new Date(event.dateEnd), 
         dateEnd: moment(event.dateEnd).format().slice(0,19),       
         location: event.location[0]._id, 
         locationName: event.location[0].name, 
@@ -396,13 +346,11 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
     }
 
     const onStartChange = (event) => {
-      //console.log(event.target.value)
       setClassModal({...classModal, dateStart: event.target.value})
     } 
 
     const onEndChange = (event) => {
       setClassModal({...classModal, dateEnd: event.target.value})
-      //setClassModal({...classModal, dateEnd: new Date(event)})
     } 
 
     const validateClass = () => {
@@ -495,7 +443,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
     }    
 
     const editLocation = (data) => {      
-      //console.log(data)
       setLocationModal({modalVisible: true, 
       id: data._id,
       modalTitle: "Edit Location",
@@ -514,8 +461,6 @@ scheduledClasses[i].end = new Date(scheduledClasses[i].dateEnd.toLocaleString("e
       event.preventDefault();
       event.stopPropagation();
 
-      // console.log(locationModal)
-      
       //validate the location modal
       validateLocation();
 

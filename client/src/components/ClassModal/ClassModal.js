@@ -9,7 +9,6 @@ import Col from "react-bootstrap/Col";
 
 
 function ClassModal(props) {
-  //console.log(props.data)
   Moment.locale('en')
 
   let locations = props.locations.map((location) =>
@@ -19,9 +18,6 @@ function ClassModal(props) {
   locations.push(<option value="none" key="none" selected disabled hidden> 
                     Select an Option 
                   </option> );
-
-  // console.log(locations)
-  //console.log(props.data.errors.message)
 
   return (
     <>  
@@ -58,7 +54,6 @@ function ClassModal(props) {
                   </Form.Row>
                   <Form.Row>
                     <Col xs={6}>
-                    {/* <Form.Group controlID="formStartDate" className="class-form-group"> */}
                     <Form.Group className="class-form-group">
                       <Form.Label htmlFor="dateStart">Start Date and Time:</Form.Label>
                       <Form.Control 
@@ -70,56 +65,12 @@ function ClassModal(props) {
                           required 
                           value={props.data.dateStart}                           
                           onChange={props.onStartChange}/>                          
-                          
-                      {/* <DateTimePicker
-                        id="dateStart"
-                        name="dateStart"    
-                        className="form-control"               
-                        required
-                        amPmAriaLabel="Select AM/PM"
-                        calendarAriaLabel="Toggle calendar"
-                        dayAriaLabel="Day"
-                        hourAriaLabel="Hour"
-                        maxDetail="minute"
-                        minuteAriaLabel="Minute"
-                        monthAriaLabel="Month"
-                        nativeInputAriaLabel="Date and time"
-                        yearAriaLabel="Year"
-                        format="MM/dd/yyyy hh:mm a"
-                        clearIcon={null}
-                        disableClock={true}
-                        locale="en-US"
-                        onChange={props.onStartChange}
-                        value={new Date(props.data.dateStart)}                    
-                      />                  */}
+
                     </Form.Group>
                     </Col>
                     <Col xs={6}>
-                    {/* <Form.Group controlID="formEndDate" className="class-form-group"> */}
-                    <Form.Group className="class-form-group">
+                      <Form.Group className="class-form-group">
                       <Form.Label htmlFor="dateEnd">End Date and Time:</Form.Label>
-                      {/* <DateTimePicker
-                        id="dateEnd"
-                        name="dateEnd"    
-                        className="form-control"               
-                        required
-                        amPmAriaLabel="Select AM/PM"
-                        calendarAriaLabel="Toggle calendar"
-                        dayAriaLabel="Day"
-                        hourAriaLabel="Hour"
-                        maxDetail="minute"
-                        minuteAriaLabel="Minute"
-                        monthAriaLabel="Month"
-                        nativeInputAriaLabel="Date and time"
-                        yearAriaLabel="Year"
-                        format="MM/dd/yyyy hh:mm a"
-                        clearIcon={null}
-                        disableClock={true}
-                        locale="en-US"
-                        onChange={props.onEndChange}
-                        value={new Date(props.data.dateEnd)} 
-                        isInvalid={props.data.errors.date}                                    
-                      />                  */}
                       <Form.Control 
                           type="datetime-local" 
                           id="dateEnd"
@@ -136,7 +87,6 @@ function ClassModal(props) {
                     </Col>
                   </Form.Row>                
                   <Form.Row>
-                    {/* <Form.Group controlID="formLocation" className="class-form-group"> */}
                     <Form.Group as={Col} className="class-form-group">
                         <Form.Label htmlFor="locationName">Location:</Form.Label>
                         <Form.Control 
@@ -145,7 +95,6 @@ function ClassModal(props) {
                           id="locationName" 
                           name="locationName" 
                           isInvalid={props.data.errors.location} 
-                          // defaultValue="none"
                           value={props.data.locationName}
                           onChange={props.changeHandler}                  
                           required>
@@ -168,12 +117,9 @@ function ClassModal(props) {
                           onChange={props.changeHandler}/>
                     </Form.Group>                     
                   </Form.Row>
-
-                  {/* <Form.Group controlID="formCancelled" className="class-form-group-cancelled"> */}
                   <Form.Group className="class-form-group-cancelled">
                       <Form.Check type="checkbox" inline label="Cancelled?" id="cancelled" checked={props.data.cancelled} value={props.data.cancelled} onChange={props.changeHandler} name="cancelled"/>
                   </Form.Group>       
-                  {/* <Form.Group controlID="formCancellationText" className={`class-form-group ${props.data.cancelled ? "" : "invisible"}`}> */}
                   <Form.Group className={`class-form-group ${props.data.cancelled ? "" : "invisible"}`}>                    
                       <Form.Label htmlFor="cancelemail">Cancellation Email:</Form.Label>
                       <Form.Control 
