@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     getMapKey: function(req,res) {
-        res.json(process.env.POSITIONSTACK_API)
+        res.json(process.env.OPENCAGEDATA_API)
     },
 
     getEmailJSUser: function(req,res) {

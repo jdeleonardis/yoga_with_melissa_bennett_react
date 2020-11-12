@@ -165,8 +165,12 @@ function Classes() {
                 return res
             })
             .then(res => {
-                const lat = res.data.data[0].latitude
-                const long = res.data.data[0].longitude
+                // console.log(res.data.results[0].geometry.lat)
+                // console.log(res.data.results[0].geometry.lng)
+                const lat = res.data.results[0].geometry.lat
+                const long = res.data.results[0].geometry.lng
+                // const lat = res.data.data[0].latitude
+                // const long = res.data.data[0].longitude
                 window.open("https://maps.google.com?q="+lat+","+long);
             })        
             .catch(err => console.log(err));
