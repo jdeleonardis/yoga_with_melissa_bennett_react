@@ -2,6 +2,7 @@ import React from "react";
 import Checkbox from "../Checkbox/Checkbox"
 import Address from "../Address/Address"
 import RegistrantContactInfo from "../RegistrantContactInfo/RegistrantContactInfo"
+import Row from "react-bootstrap/Row";
 import "./ClassesComponent.css"
 
 
@@ -13,11 +14,11 @@ function ClassesComponent(props) {
       <h1>Registration</h1>
       <h5 className="headers">Step 1: Select any of the upcoming classes you would like to attend:</h5>
 
-      <form>
+      
        {props.classData.map((classStuff,i) => (          
-          <div 
+          <div          
             key={i}>
-            <div className="row">              
+            <Row>             
               <Checkbox 
                 classInfo={classStuff}
                 onCheckboxChange={props.onCheckboxChange}
@@ -26,7 +27,7 @@ function ClassesComponent(props) {
                 classInfo={classStuff}
                 mapClicked={props.mapClicked}
               />                            
-            </div>
+            </Row>
           </div>
         ))}
 
@@ -35,7 +36,6 @@ function ClassesComponent(props) {
         <div id="btnwrapper" className="pb-3">
             <button type="button" onClick={props.formSubmit} className="btn greenbtn">Save</button>            
         </div> 
-      </form>
     </section>
 )
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Col from "react-bootstrap/Col";
 import "./Address.css"
 
 function Address(props) {
@@ -6,7 +7,7 @@ function Address(props) {
   //console.log(props.classInfo.location[0])
 
   return (
-    <div className="col-lg-6">
+    <Col>
         <p>
         {props.classInfo.title}
         <br></br>
@@ -23,7 +24,7 @@ function Address(props) {
             Map
         </button>
         </p>
-  </div> 
+    </Col>
   );
 }
 

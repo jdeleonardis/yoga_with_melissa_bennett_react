@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "moment";
+import Col from "react-bootstrap/Col";
 import "./Checkbox.css"
 
 Moment.locale('en')
@@ -23,30 +24,31 @@ function Checkbox({ classInfo, onCheckboxChange }) {
   }
   
   return (
-  <div className="col-lg-6">
-    <div className="form-check">
-      <label className="checkboxDate">
-        <input        
-          type="checkbox"
-          name={classInfo.dateStart}
-          onChange={onCheckboxChange}
-          // if the available spots = 0, dont show the checkbox
-          className={`${checkAvailability && availableSpots === 0 ? "invisible" : "form-check-input"}`}/>
-        
-        {Moment(classInfo.dateStart).format('dddd, MMMM Do, YYYY')}<br></br>
-        {Moment(classInfo.dateStart).format('h:mm A') + "-" + Moment(classInfo.dateEnd).format('h:mm A')}
-        {/* less than 3 spots, make the available text red. */}
-        {checkAvailability
-           ?<div 
-           id={`${checkAvailability && availableSpots < 3 ? "availableSpots" : ""}`}>              
-              {`${availableSpots} spot(s) remaining`}
-           </div> 
-           : false
-        }
+  
+    <Col>
+      <div className="form-check">
+        <label className="checkboxDate">
+          <input        
+            type="checkbox"
+            name={classInfo.dateStart}
+            onChange={onCheckboxChange}
+            // if the available spots = 0, dont show the checkbox
+            className={`${checkAvailability && availableSpots === 0 ? "invisible" : "form-check-input"}`}/>
+          
+          {Moment(classInfo.dateStart).format('dddd, MMMM Do, YYYY')}<br></br>
+          {Moment(classInfo.dateStart).format('h:mm A') + "-" + Moment(classInfo.dateEnd).format('h:mm A')}
+          {/* less than 3 spots, make the available text red. */}
+          {checkAvailability
+            ?<div 
+            id={`${checkAvailability && availableSpots < 3 ? "availableSpots" : ""}`}>              
+                {`${availableSpots} spot(s) remaining`}
+            </div> 
+            : false
+          }
 
-      </label>
-    </div>
-  </div>
+        </label>
+      </div>
+    </Col>
   )
 };
 
