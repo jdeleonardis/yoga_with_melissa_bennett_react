@@ -20,9 +20,7 @@ export default {
     //get geocoding location
     getGeoLocation: function(address, mapKey) {    
         let addrString = address.location[0].name +" "+ address.location[0].addr1 +" "+ address.location[0].city +", "+ address.location[0].state +" "+ address.location[0].zip        
-        addrString = addrString.replace(/\s/g, '%20')           
-        // return axios.get("http://api.positionstack.com/v1/forward?access_key=" + mapKey + "&query=" + addrString)
-        //return axios.get("https://api.opencagedata.com/geocode/v1/json?q=Rua+Cafel%C3%A2ndia%2C+Carapicu%C3%ADba%2C+Brasil&key=68cd78e265c14fc8ac28b2c70ca38168&pretty=1")
+        addrString = addrString.replace(/\s/g, '%20')                   
         return axios.get("https://api.opencagedata.com/geocode/v1/json?q=" + addrString + "&key=" + mapKey)
     },
 
