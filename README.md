@@ -1,5 +1,4 @@
 # Yoga With Melissa Bennett
-
 ![Badge](https://img.shields.io/github/v/release/jdeleonardis/yoga_with_melissa_bennett_react?color=blue&include_prereleases&style=plastic)
 
 ## Description
@@ -29,6 +28,7 @@ Other than the usual suspects (HTML, CSS, JavaScript, React), the following libr
 ## Images
 
 ## Contributors
+jdeleonardis
 
 ## License
 MIT
