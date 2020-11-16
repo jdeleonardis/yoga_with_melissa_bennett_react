@@ -20,7 +20,7 @@ The admin page is where the majority of the functionality is located. There is a
 * [License](#License)
 
 ## Usage
-Navigate to the website located at https://yogawithmelissabennett.com
+Navigate to the website located at https://yogawithmelissabennett.com. A development version of the site can be located at https://yogawithmelissabennett-dev.herokuapp.com.
 
 ## Technology
 Other than the usual suspects (HTML, CSS, JavaScript, React), the following libraries are also in use: Bootstrap, React-Bootstrap, React-Big-Calendar, Moment.js, React-datetime-picker, bcrypt, jsonwebtokens, cookie-parser, dotenv. A Mongo database is maintained at Mongo AtlasDB.
