@@ -92,16 +92,16 @@ function Home() {
 
             <div className="row">
                 <section className="col-lg-4 centered_text pb-3">
-                    <img id="melissapic" src="../../Assets/marge_simpson.jpg" className="img-fluid" alt="Melissa"></img>   
+                    <img id="melissapic" src="../../Assets/IMG_1007_modified.JPG" className="img-fluid" alt="Melissa"></img>   
                 </section>
                 <section className="col-lg-8">
                     <div>
-                        <p>Lots of stuff about melissa</p>
+                        <p>Duis vitae pretium dolor, ut sagittis sapien. Suspendisse a gravida turpis. Morbi tincidunt magna in arcu vehicula sagittis. Vivamus ligula dolor, ultrices at massa mattis, convallis interdum leo. Vivamus tincidunt diam nec felis ornare, in pharetra ante imperdiet. Duis blandit vestibulum quam. Etiam purus nunc, lobortis id augue ut, hendrerit maximus odio. Aenean metus massa, elementum eget venenatis in, semper sed erat. Sed ac tristique nisl, quis facilisis sem. Pellentesque malesuada tincidunt nibh. In gravida, arcu eget interdum convallis, massa neque finibus augue, nec pharetra magna tellus congue purus. Etiam ultrices ex vitae egestas pulvinar.</p>
                     </div>
                     <div id="btnwrapper" className="pb-3">
-                        <a href="/aboutmelissa">
+                        {/* <a href="/aboutmelissa">
                             <button type="button" className="btn greenbtn m-3">About Melissa</button>
-                        </a>
+                        </a> */}
                         <a href="/contact">
                             <button type="button" className="btn greenbtn m-3">Contact</button>
                         </a>          

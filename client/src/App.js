@@ -21,7 +21,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/classes" component={Classes} />
             <Route exact path="/resources" component={Resources} />
-            <Route exact path="/aboutmelissa" component={About} />          
+            {/* <Route exact path="/aboutmelissa" component={About} />           */}
             <Route exact path="/contact" component={Contact} />                    
             <Route exact path="/login" component={Login} />                              
             <Route exact path="/adminhome" component={withAuth(AdminHome)} />

@@ -23,7 +23,7 @@ function NavComponent() {
           <Nav.Link id="link" href="/" className={location.pathname === "/" ? "active" : "inactive"}>Home</Nav.Link>
           <Nav.Link id="link" href="/classes" className={location.pathname === "/classes" ? "active" : "inactive"}>Classes</Nav.Link>
           <Nav.Link id="link" href="/resources" className={location.pathname === "/resources" ? "active" : "inactive"}>Resources</Nav.Link>
-          <Nav.Link id="link" href="/aboutmelissa" className={location.pathname === "/aboutmelissa" ? "active" : "inactive"}>About Melissa</Nav.Link>      
+          {/* <Nav.Link id="link" href="/aboutmelissa" className={location.pathname === "/aboutmelissa" ? "active" : "inactive"}>About Melissa</Nav.Link>       */}
           <Nav.Link id="link" href="/contact" className={location.pathname === "/contact" ? "active" : "inactive"}>Contact</Nav.Link>
           <Nav.Link id="link" href="/adminhome" className={location.pathname === "/adminhome" || location.pathname === "/login" ? "active" : "inactive"}>Admin</Nav.Link>             
         </Nav>
