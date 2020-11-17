@@ -2,7 +2,7 @@ import React from "react";
 import Home from "./pages/Home/Home.js";
 import Classes from "./pages/Classes/Classes.js";
 import Resources from "./pages/Resources/Resources.js";
-import About from "./pages/About/About.js";
+// import About from "./pages/About/About.js";
 import Contact from "./pages/Contact/Contact.js";
 import Login from "./pages/Login/Login.js"
 import AdminHome from "./pages/AdminHome/AdminHome.js"
