@@ -38,7 +38,7 @@ function Home() {
             <div className="row">
                 <section className="col-lg-12">
                     <div>
-                        <p>I teach a free Warriors at Ease yoga class for veterans, active duty military, and their family members. This class is my way of giving back to our military community. I am a RYT-200 and a Certified Warriors at Ease yoga teacher. Warriors at Ease classes are based on methods that are trauma-sensitive, evidence-based, and informed by military culture. My classes incorporate full body stretching, breathing meditation, balance practice, and strength building. Classes are for all ability levels with various modifications provided.</p>
+                        <p>I teach a free Warriors at Ease yoga class for veterans, active duty military, and their family members. This class is my way of giving back to our military community. Warriors at Ease classes are based on methods that are trauma-sensitive, evidence-based, and informed by military culture. My classes incorporate full body stretching, breathing meditation, balance practice, and strength building. Classes are for all ability levels with various modifications provided.</p>
                         <p>Classes are currently being held at the following location(s): </p>
                         <ActiveLocations 
                             data={activeLocations}
@@ -96,8 +96,9 @@ function Home() {
                 </section>
                 <section className="col-lg-8">
                     <div>
-                        <p>Duis vitae pretium dolor, ut sagittis sapien. Suspendisse a gravida turpis. Morbi tincidunt magna in arcu vehicula sagittis. Vivamus ligula dolor, ultrices at massa mattis, convallis interdum leo. Vivamus tincidunt diam nec felis ornare, in pharetra ante imperdiet. Duis blandit vestibulum quam. Etiam purus nunc, lobortis id augue ut, hendrerit maximus odio. Aenean metus massa, elementum eget venenatis in, semper sed erat. Sed ac tristique nisl, quis facilisis sem. Pellentesque malesuada tincidunt nibh. In gravida, arcu eget interdum convallis, massa neque finibus augue, nec pharetra magna tellus congue purus. Etiam ultrices ex vitae egestas pulvinar.</p>
-                    </div>
+                        <p>I found yoga at the age of 40, seeking more flexibility in my body and relief from anxiety. Once I had experienced the positive effects of yoga on my body
+                            and my mind, I wanted to share this practice with our veterans and active duty military who have given so much to all of us. I am a Yoga Alliance Registered Yoga Teacher (RYT-200) and a Warriors at Ease
+                            Certified Teacher. I have also done additional training in teaching yoga to older adults and teaching trauma-sensitive yoga. </p>         </div>
                     <div id="btnwrapper" className="pb-3">
                         {/* <a href="/aboutmelissa">
                             <button type="button" className="btn greenbtn m-3">About Melissa</button>

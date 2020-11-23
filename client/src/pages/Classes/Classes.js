@@ -186,7 +186,8 @@ function Classes() {
 
             <div className="row">
                 <section className="col-lg-4 centered_text pb-3">
-                    <img src="../../Assets/group_shot_1_300x397.jpg" className="img-fluid" alt="Class"></img>
+                    {/* <img src="../../Assets/group_shot_1_300x397.jpg" className="img-fluid" alt="Class"></img> */}
+                    <img src="../../Assets/in_class.jpg" className="img-fluid" alt="Class"></img>
                 </section>
 
                 <section className="col-lg-8">
@@ -202,11 +203,13 @@ function Classes() {
                             data={activeLocations}
                         />
                         <h4>What to expect</h4>
-                        <p>Beatings.  Lots of beatings.</p>
+                        <p>A friendly community of all ages and experiences. The 60 minute class will provide a full body practice which is tailored to your comfort level.
+                            The class begins with a few minutes of breathing meditation to calm the mind. Then we warm up the spine before moving into various yoga forms to practice flexibility,
+                            improve balance, and strengthen the body.</p>
                         <h4>What to wear</h4>  
-                        <p>Even more beatings</p>                  
+                        <p>Comfortable clothing that will allow you to move freely. Dressing in layers is always a good idea in case you get too warm or cool.</p>                  
                         <h4>What to bring</h4>
-                        <p>Still more</p>
+                        <p>Bring a water bottle. If you have your own yoga mat, please bring it. If you don't have one, no worries at all! I will have a mat for you to borrow.</p>
                     </div>                    
                 </section>
                 <ContactNameContext.Provider value={contactNameInfo}>

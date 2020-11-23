@@ -19,17 +19,22 @@ function Resources() {
                             <tr>
                                 <th>Resource</th>
                                 <th>Website</th>
-                                <th>Phone Number</th>
+                                <th>Contact</th>
                             </tr>
                             <tr>
                                 <td>Warriors At Ease</td>
                                 <td><a href="http://warriorsatease.org/" target="_blank" rel="noopener noreferrer">Warriors At Ease</a></td>
-                                <td>555-121-1212</td>
+                                <td>info@warriorsatease.org</td>
                             </tr>
                             <tr>
-                                <td>Suicide Prevention Lifeline</td>
-                                <td><a href="https://suicidepreventionlifeline.org/" target="_blank" rel="noopener noreferrer">Suicide Prevention Lifeline</a></td>              
-                                <td>555-121-1212</td>
+                                <td>Veterans Crisis Line</td>
+                                <td><a href="https://veteranscrisisline.net/" target="_blank" rel="noopener noreferrer">Veterans Crisis Line</a></td>              
+                                <td>1-800-273-8255</td>
+                            </tr>
+                            <tr>
+                                <td>Military OneSource</td>
+                                <td><a href="https://www.militaryonesource.mil/" target="_blank" rel="noopener noreferrer">Mililary OneSource</a></td>              
+                                <td>1-800-342-9647</td>
                             </tr>
                         </tbody>
                     </table>
