@@ -13,8 +13,9 @@ function ClassesComponent(props) {
       <h1>Registration</h1>
       <h5 className="headers">Step 1: Select any of the upcoming classes you would like to attend:</h5>
 
-      
-       {props.classData.map((classStuff,i) => (          
+       {props.classData.length > 0
+       ?      
+       props.classData.map((classStuff,i) => (          
           <div          
             key={i}>
             <Row>             
@@ -28,7 +29,18 @@ function ClassesComponent(props) {
               />                            
             </Row>
           </div>
-        ))}
+        ))
+        : 
+        <div>
+          <p>
+            <h5>
+              <ul>
+              <li style={{listStyleType:"none"}}>No classes currently scheduled </li>
+              </ul>
+            </h5>
+          </p>
+        </div>
+       }
 
         <h5 className="headers">Step 2: Enter your name and email address:</h5>
         <RegistrantContactInfo/>
