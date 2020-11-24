@@ -11,3 +11,11 @@
     background-color: #2e3d30;
     background-image: linear-gradient(155deg,black 0%, #b7bbb3 20%,#2e3d30 40%);
 }
+
+
+@media screen and (max-width: 375px) {
+    #navbar-image {
+        height: 88px;
+        width: 250px;
+    }
+}
