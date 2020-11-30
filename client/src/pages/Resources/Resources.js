@@ -35,7 +35,7 @@ function Resources() {
                             <tr>
                                 <td>Military OneSource</td>
                                 <td><a href="https://www.militaryonesource.mil/" target="_blank" rel="noopener noreferrer">Mililary OneSource</a></td>              
-                                <td id='resourceColumn'>jdeleonardis@hotmail.comaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                                <td id='resourceColumn'>1-800-342-9647</td>
                             </tr>
                         </tbody>
                     </table>
