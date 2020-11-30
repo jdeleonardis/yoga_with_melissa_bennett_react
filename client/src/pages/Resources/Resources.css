@@ -1,0 +1,7 @@
+#resourceTable {
+    table-layout:fixed
+}
+
+#resourceColumn {
+    word-wrap: break-word
+}
