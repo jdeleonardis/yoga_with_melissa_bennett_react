@@ -35,7 +35,7 @@ function ClassesComponent(props) {
           <p>
             <h5>
               <ul>
-              <li style={{listStyleType:"none"}}>No classes currently scheduled due to Covid-19 </li>
+              <li style={{listStyleType:"none"}}>No classes currently scheduled</li>
               </ul>
             </h5>
           </p>
