@@ -46,7 +46,7 @@ function Home() {
                     </div>  
                     <div id="btnwrapper" className="pb-3">
                         <a href="/classes">
-                            <button type="button" className="btn greenbtn">Class Information</button>
+                            <button type="button" className="btn greenbtn">Click Here To Register For A Class</button>
                          </a>
                     </div>                
                 </section>

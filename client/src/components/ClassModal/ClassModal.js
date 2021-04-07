@@ -53,7 +53,7 @@ function ClassModal(props) {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col xs={6}>
+                    <Col xs={12} sm={6}>
                     <Form.Group className="class-form-group">
                       <Form.Label htmlFor="dateStart">Start Date and Time:</Form.Label>
                       <Form.Control 
@@ -68,7 +68,7 @@ function ClassModal(props) {
 
                     </Form.Group>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={12} sm={6}>
                       <Form.Group className="class-form-group">
                       <Form.Label htmlFor="dateEnd">End Date and Time:</Form.Label>
                       <Form.Control 

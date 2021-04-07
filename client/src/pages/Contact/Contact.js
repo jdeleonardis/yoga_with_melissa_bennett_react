@@ -85,7 +85,7 @@ function Contacts() {
                     <input type="text" id="name" className="form-control" required value={emailInfo.name} onChange={onNameChange} name="from_name"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Your email address</label>
+                    <label htmlFor="exampleInputEmail1">Your Email Address</label>
                     <input type="email" id="email" className="form-control" required value={emailInfo.email} onChange={onEmailChange} name="from_email"/>
                 </div>
                 <div className="form-group">
