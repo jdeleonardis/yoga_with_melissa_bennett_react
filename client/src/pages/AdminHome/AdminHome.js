@@ -13,7 +13,7 @@ import "./AdminHome.css";
 
 function AdminHome() {
 
-    const allErrors = {};
+    let allErrors = {};
 
     const [classData, setClassData] = useState([]);
 
@@ -33,6 +33,8 @@ function AdminHome() {
       showAttendees: false,
       attendeeNames: [],
       attendeeEmailAddresses: [],
+      subject: "",
+      emailContents: "",
       errors: {}
     });
 
@@ -210,7 +212,7 @@ function AdminHome() {
                   console.log("success");
                 }, (error) => {
                     console.log(error.text);                
-                    alert(`The cancellation email has has encountered an error with message ${error.text}`);
+                    alert(`The cancellation email has encountered an error with message ${error.text}`);
                 });
               })
 
@@ -232,6 +234,58 @@ function AdminHome() {
       })
       .catch(err => console.log(err));
     }    
+
+    const APIsendExtraEmail = () => {   
+      const attendees = document.getElementsByClassName('emailAttendees');
+      let attendeeList = '';      
+      for (let i=0; i < attendees.length; i++) {
+        attendeeList += attendees[i].innerHTML + ';'
+      }      
+
+      //format the text with <br/> for new lines so it is displayed correctly when sent.
+      let message = ""
+      let lines = classModal.emailContents.split('\n')
+
+      for (let i=0; i<lines.length; i++) {
+        if (i === lines.length-1){
+          message += lines[i]
+        }
+        else {
+          message += lines[i] + "<br/>"
+        }              
+      } 
+
+      //extra check, probably overkill, to make sure everything is ready to go before sending the email
+      if (message !== "") {
+        
+        let emailInfo = {
+          message: message,
+          to_name: attendeeList,
+          subject: classModal.subject
+        }
+
+        API.getEmailJSUser()
+        .then(res => {
+          emailjs.send('gmail', 'template_gi2yg9z', emailInfo, res.data)
+          .then((result) => {
+            alert('Email has been sent successfully.')
+            setClassModal({...classModal,
+              subject: "",
+              emailContents: "",
+              errors: {}
+             });
+             allErrors = {};
+          }, (error) => {
+              console.log(error.text);                
+              alert(`Sending an email to all participants has encountered an error with message ${error.text}`);
+          });
+        })
+        .then(res => {
+          setValidated(false);
+          return res
+        })    
+      }
+    }
 
     const APIaddLocation = () => {        
       API.insertLocation(locationModal)
@@ -331,6 +385,8 @@ function AdminHome() {
       switch(valueChanged) {
         case "title":
         case "cancelemail":
+        case "subject":
+        case "emailContents":
         case "maxParticipants":
           setClassModal({...classModal, [valueChanged]: event.target.value})
           break;
@@ -375,7 +431,6 @@ function AdminHome() {
 
     const validateLocation = () => {
       setValidated(false);
-      console.log(locationModal.state)
 
       if (locationModal.name === "" || locationModal.name === undefined) {
         allErrors.name = true;        
@@ -401,6 +456,18 @@ function AdminHome() {
 
     }    
 
+    const validateExtraEmail = () => {
+      setValidated(false);
+
+      if (classModal.subject === "" || classModal.subject === undefined) {
+        allErrors.subject = true;        
+      }
+
+      if (classModal.emailContents === "" || classModal.emailContents === undefined) {
+        allErrors.emailContents = true;        
+      }
+    }  
+
     const onClassSubmit = async event => {
 
       event.preventDefault();
@@ -419,6 +486,24 @@ function AdminHome() {
         else {
           APIupdateClass();
         }    
+      }
+      else{
+        setClassModal({...classModal, errors: allErrors})        
+      }
+    } 
+
+    const onExtraEmailSubmit = async event => {
+
+      event.preventDefault();
+      event.stopPropagation();
+      
+      //validate the extra email
+      validateExtraEmail();
+
+      //if there are no errors, reset everything and send email
+      if (Object.keys(allErrors).length === 0) {
+         setValidated(true);
+         APIsendExtraEmail();
       }
       else{
         setClassModal({...classModal, errors: allErrors})        
@@ -601,6 +686,7 @@ function AdminHome() {
                 onStartChange={onStartChange}
                 onEndChange={onEndChange}
                 onClassSubmit={onClassSubmit}
+                sendExtraEmail={onExtraEmailSubmit}
                 onHide={hideModal}
                 changeHandler={changeHandler}
                 validated={validated}

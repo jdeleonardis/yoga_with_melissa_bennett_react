@@ -166,16 +166,72 @@ function ClassModal(props) {
               <Col className={`${props.data.showAttendees ? "" : "invisible"}`}>
                 <hr></hr>
                 <h4>Class Attendees</h4>
+                {(props.data.attendeeNames.length > 0) ?
                 <div>
                   {props.data.attendeeNames.map((attendee,i) => ( 
                     <p key={i}>
                       <b>{attendee}</b><br></br>
-                      {props.data.attendeeEmailAddresses[i]}
+                      <span className='emailAttendees'>{props.data.attendeeEmailAddresses[i]}</span>
                     </p>
                   ))}                  
                 </div>            
+                :
+                <div>
+                  No registered attendees yet.
+                </div>
+               }                
               </Col>
             </Row>
+
+            <Form className={`${props.data.showAttendees ? "" : "invisible"}`} noValidate validated={props.validated} id="class-form" onSubmit={props.sendExtraEmail}>                  
+                <Form.Row>
+                  <Col>
+                    <hr></hr>
+                    <h4>Send Email To All Attendees</h4>
+                    <Form.Group className="class-form-group">
+                        <Form.Label htmlFor="subject">Subject</Form.Label>
+                        <Form.Control 
+                          type="text" 
+                          id="subject" 
+                          className="form-control" 
+                          isInvalid={props.data.errors.subject} 
+                          required 
+                          value={props.data.subject} 
+                          onChange={props.changeHandler} 
+                          name="subject" 
+                          placeholder="Enter subject"/>
+                        <Form.Control.Feedback type="invalid">
+                          Please enter a subject
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group className="class-form-group">                        
+                        <Form.Label htmlFor="emailContents">Email contents</Form.Label>
+                        <Form.Control 
+                          as="textarea" 
+                          id="emailContents" 
+                          rows={4}
+                          className="form-control" 
+                          isInvalid={props.data.errors.emailContents} 
+                          required 
+                          value={props.data.emailContents} 
+                          onChange={props.changeHandler} 
+                          name="emailContents" 
+                          placeholder="Enter email contents"/>
+                        <Form.Control.Feedback type="invalid">
+                          Please enter email contents
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <div className="modalClassesButtons">                 
+                      <button 
+                        type="submit"    
+                        className="btn greenbtn m-2">
+                        Email All Attendees
+                      </button>  
+                    </div>
+                  </Col>
+                </Form.Row>
+            </Form>
+
           </Container>          
 
         </Modal.Body>
