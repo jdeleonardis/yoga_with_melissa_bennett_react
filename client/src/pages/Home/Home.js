@@ -38,7 +38,7 @@ function Home() {
             <div className="row">
                 <section className="col-lg-12">
                     <div>
-                        <p>I teach a free Warriors at Ease yoga class for veterans, active duty military, and their family members. This class is my way of giving back to our military community. Warriors at Ease classes are based on methods that are trauma-sensitive, evidence-based, and informed by military culture. My classes incorporate full body stretching, breathing meditation, balance practice, and strength building. Classes are for all ability levels with various modifications provided.</p>
+                        <p>TEST I teach a free Warriors at Ease yoga class for veterans, active duty military, and their family members. This class is my way of giving back to our military community. Warriors at Ease classes are based on methods that are trauma-sensitive, evidence-based, and informed by military culture. My classes incorporate full body stretching, breathing meditation, balance practice, and strength building. Classes are for all ability levels with various modifications provided.</p>
                         <p>Classes are currently being held at the following location(s): </p>
                         <ActiveLocations 
                             data={activeLocations}
